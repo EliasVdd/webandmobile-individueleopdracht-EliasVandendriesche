@@ -16,7 +16,7 @@ class PDOMessageModel implements MessageModel
     {
         $pdo = $this->connection->getPDO();
 
-        $statement = $pdo->prepare('SELECT * from Messages WHERE content like "%":content"%" and category like "%":category"%"');
+        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%" and category like "%":category"%"');
         $statement->bindParam(':content', $content, \PDO::PARAM_STR);
         $statement->bindParam(':category', $category, \PDO::PARAM_STR);
         $statement->execute();
@@ -33,6 +33,17 @@ class PDOMessageModel implements MessageModel
     public function getAllMessages(){
         $statement = $this->connection->getPDO()->prepare('SELECT * FROM Messages');
         $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function getMessage($id)
+    {
+        $pdo = $this->connection->getPDO();
+
+        $statement = $pdo->prepare('SELECT * FROM Messages WHERE id = :id');
+        $statement->bindParam(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
         return $statement->fetchAll();
     }
 }
