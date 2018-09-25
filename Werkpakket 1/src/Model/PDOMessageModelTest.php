@@ -73,4 +73,13 @@ class PDOMessageModelTest extends TestCase
             $this->assertContains($actualMessage, $actualMessages);
         }
     }
+
+    public function testGetMessage_messageInDatabase_Message()
+    {
+        $messageModel = new PDOMessageModel($this->connection);
+        $actualMessage = $messageModel->getMessage(1);
+        $expectedMessage = $this->providerMessages()[0];
+        $this->assertEquals('array', gettype($actualMessage));
+        $this->assertEquals($expectedMessage, $actualMessage);
+    }
 }

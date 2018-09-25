@@ -25,13 +25,18 @@ class PDOMessageModel implements MessageModel
         $statement->bindParam(':category', $category, \PDO::PARAM_STR);
         $statement->execute();
 
-        /*$statement->bindColumn(1, $id, \PDO::PARAM_INT);
+        $statement->bindColumn(1, $id, \PDO::PARAM_INT);
         $statement->bindColumn(2, $content, \PDO::PARAM_STR);
         $statement->bindColumn(3, $category, \PDO::PARAM_STR);
-        $statement->bindColumn(4, $upVotes, \PDO::PARAM_INT);
-        $statement->bindColumn(5, $downVotes, \PDO::PARAM_INT);*/
+        $statement->bindColumn(4, $upvotes, \PDO::PARAM_INT);
+        $statement->bindColumn(5, $downvotes, \PDO::PARAM_INT);
 
-        return $statement->fetchAll();
+        $message = null;
+        if ($statement->fetch(\PDO::FETCH_BOUND)) {
+            $message = ['id' => $id, 'content' => $content, 'category' => $category,
+                        'upvotes' => $upvotes, 'downvotes' => $downvotes];
+        }
+        return $message;
     }
 
     public function findMessageByContent($content)
@@ -40,7 +45,19 @@ class PDOMessageModel implements MessageModel
         $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%"');
         $statement->bindParam(':content', $content, \PDO::PARAM_STR);
         $statement->execute();
-        return $statement->fetchAll();
+
+        $statement->bindColumn(1, $id, \PDO::PARAM_INT);
+        $statement->bindColumn(2, $content, \PDO::PARAM_STR);
+        $statement->bindColumn(3, $category, \PDO::PARAM_STR);
+        $statement->bindColumn(4, $upvotes, \PDO::PARAM_INT);
+        $statement->bindColumn(5, $downvotes, \PDO::PARAM_INT);
+
+        $message = null;
+        if ($statement->fetch(\PDO::FETCH_BOUND)) {
+            $message = ['id' => $id, 'content' => $content, 'category' => $category,
+                'upvotes' => $upvotes, 'downvotes' => $downvotes];
+        }
+        return $message;
     }
 
     public function getAllMessages()
@@ -62,7 +79,18 @@ class PDOMessageModel implements MessageModel
         $statement->bindParam(':id', $id, \PDO::PARAM_INT);
         $statement->execute();
 
-        return $statement->fetchAll();
+        $statement->bindColumn(1, $id, \PDO::PARAM_INT);
+        $statement->bindColumn(2, $content, \PDO::PARAM_STR);
+        $statement->bindColumn(3, $category, \PDO::PARAM_STR);
+        $statement->bindColumn(4, $upvotes, \PDO::PARAM_INT);
+        $statement->bindColumn(5, $downvotes, \PDO::PARAM_INT);
+
+        $message = null;
+        if ($statement->fetch(\PDO::FETCH_BOUND)) {
+            $message = ['id' => $id, 'content' => $content, 'category' => $category,
+                'upvotes' => $upvotes, 'downvotes' => $downvotes];
+        }
+        return $message;
     }
 
     public function addUpvote($id)
