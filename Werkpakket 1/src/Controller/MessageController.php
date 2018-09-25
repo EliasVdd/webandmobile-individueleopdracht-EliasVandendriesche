@@ -19,7 +19,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/message", name="message")
+     * @Route("/message", methods={"GET"}, name="message")
      */
     public function getAllMessages(){
         $statusCode = 200;

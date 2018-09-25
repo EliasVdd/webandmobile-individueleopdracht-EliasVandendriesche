@@ -3,6 +3,8 @@
 namespace App\Model;
 
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 class PDOMessageModel implements MessageModel
 {
     private $connection;
@@ -34,5 +36,24 @@ class PDOMessageModel implements MessageModel
         $statement = $this->connection->getPDO()->prepare('SELECT * FROM Messages');
         $statement->execute();
         return $statement->fetchAll();
+    }
+
+    public function getMessageWithKeywords($keywords)
+    {
+        //$statement = $this->connection->getPDO()->prepare('SELECT * FROM Messages WHERE content LIKE :keyword ');
+        //$statement->bindParam(':keyword', $keywords);
+        //$statement->execute();
+
+        $messages = $this->getAllMessages();
+
+        $messagesWithKeywords = array();
+
+        foreach ($messages as $message){
+            if (!strpos($message, $keywords)){
+                array_push($messagesWithKeywords, $message);
+            }
+        }
+
+        return $messagesWithKeywords;
     }
 }
