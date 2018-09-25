@@ -60,7 +60,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/messages/{content}", methods={"GET"}, name="getMessageByContent")
+     * @Route("/message/find/{content}", methods={"GET"}, name="getMessageByContent")
      */
     public function findMessageByContent($content)
     {
@@ -83,7 +83,7 @@ class MessageController extends AbstractController
 
 
     /**
-     * @Route("/message/{content}/{category}", methods={"GET"}, name="getMessageByContentAndCategory")
+     * @Route("/message/find/{content}/{category}", methods={"GET"}, name="getMessageByContentAndCategory")
      */
     public function findMessageByContentAndCategory($content, $category)
     {
