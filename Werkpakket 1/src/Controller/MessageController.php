@@ -7,6 +7,7 @@ use App\Model\MessageModel;
 use App\Model\PDOMessageModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MessageController extends AbstractController
@@ -59,7 +60,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/message/{content}/{category}"), methods={"GET"}, name="getMessageByContentAndCategory")
+     * @Route("/message/{content}/{category}", methods={"GET"}, name="getMessageByContentAndCategory")
      */
     public function findMessageByContentAndCategory($content, $category)
     {
@@ -81,7 +82,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/message/{id}"), methods={"PUT"}, name="addUpvote")
+     * @Route("/message/{id}", methods={"POST"}, name="addUpvote")
      */
     public function addUpvote($id)
     {
@@ -99,6 +100,6 @@ class MessageController extends AbstractController
             $statuscode = 500;
         }
 
-        return new JsonResponse($message, $statuscode);
+        return new JsonResponse("Succesfully added an upvote.", $statuscode);
     }
 }
