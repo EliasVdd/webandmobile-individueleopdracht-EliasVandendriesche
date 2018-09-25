@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+
 class PDOMessageModel implements MessageModel
 {
     private $connection;
@@ -30,6 +31,15 @@ class PDOMessageModel implements MessageModel
         $statement->bindColumn(4, $upVotes, \PDO::PARAM_INT);
         $statement->bindColumn(5, $downVotes, \PDO::PARAM_INT);*/
 
+        return $statement->fetchAll();
+    }
+
+    public function findMessageByContent($content)
+    {
+        $pdo = $this->connection->getPDO();
+        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%"');
+        $statement->bindParam(':content', $content, \PDO::PARAM_STR);
+        $statement->execute();
         return $statement->fetchAll();
     }
 
@@ -88,4 +98,6 @@ class PDOMessageModel implements MessageModel
 
         return $statement->execute();
     }
+
+
 }
