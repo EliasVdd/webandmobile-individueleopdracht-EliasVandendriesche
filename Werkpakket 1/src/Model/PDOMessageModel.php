@@ -29,4 +29,10 @@ class PDOMessageModel implements MessageModel
 
         return $statement->fetchAll();
     }
+
+    public function getAllMessages(){
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM Messages');
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 }
