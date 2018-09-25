@@ -54,4 +54,21 @@ class PDOMessageModel implements MessageModel
 
         return $statement->fetchAll();
     }
+
+    public function addUpvote($id)
+    {
+        $upvotes = $this->getMessage($id)[0][3] + 1;
+
+        if ($id <= 0) {
+            throw new \InvalidArgumentException();
+        }
+
+        $pdo = $this->connection->getPDO();
+
+        $statement = $pdo->prepare('UPDATE Messages SET upvotes=:upvotes WHERE id=:id');
+        $statement->bindParam(':upvotes', $upvotes, \PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        return $statement->execute();
+    }
 }

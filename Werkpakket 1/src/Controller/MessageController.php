@@ -43,10 +43,10 @@ class MessageController extends AbstractController
     {
         $statuscode = 200;
 
-        $messages = null;
+        $message = null;
         try {
-            $messages = $this->messageModel->getMessage($id);
-            if ($messages == null) {
+            $message = $this->messageModel->getMessage($id);
+            if ($message == null) {
                 $statuscode = 404;
             }
         } catch (\InvalidArgumentException $exception) {
@@ -55,7 +55,7 @@ class MessageController extends AbstractController
             $statuscode = 500;
         }
 
-        return new JsonResponse($messages, $statuscode);
+        return new JsonResponse($message, $statuscode);
     }
 
     /**
@@ -78,5 +78,27 @@ class MessageController extends AbstractController
         }
 
         return new JsonResponse($messages, $statuscode);
+    }
+
+    /**
+     * @Route("/message/{id}"), methods={"PUT"}, name="addUpvote")
+     */
+    public function addUpvote($id)
+    {
+        $statuscode = 200;
+
+        $message = null;
+        try {
+            $message = $this->messageModel->addUpvote($id);
+            if ($message == null) {
+                $statuscode = 404;
+            }
+        } catch (\InvalidArgumentException $exception) {
+            $statuscode = 400;
+        } catch (\PDOException $exception) {
+            $statuscode = 500;
+        }
+
+        return new JsonResponse($message, $statuscode);
     }
 }
