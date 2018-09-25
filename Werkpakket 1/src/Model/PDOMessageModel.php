@@ -36,6 +36,17 @@ class PDOMessageModel implements MessageModel
         return $statement->fetchAll();
     }
 
+    public function findMessageByContent($content)
+    {
+        $pdo = $this->connection->getPDO();
+
+        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%"');
+        $statement->bindParam(':content', $content, \PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
     public function getAllMessages(){
         $statement = $this->connection->getPDO()->prepare('SELECT * FROM Messages');
         $statement->execute();
@@ -90,4 +101,6 @@ class PDOMessageModel implements MessageModel
 
         return $statement->execute();
     }
+
+
 }
