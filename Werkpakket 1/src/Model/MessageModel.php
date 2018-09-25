@@ -6,5 +6,6 @@ namespace App\Model;
 interface MessageModel
 {
     function getAllMessages();
-    public function findMessageByContentAndCategory($content, $category);
+    function findMessageByContentAndCategory($content, $category);
+    function getMessage($id);
 }
