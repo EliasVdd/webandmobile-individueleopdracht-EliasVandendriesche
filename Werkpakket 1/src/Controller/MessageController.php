@@ -82,7 +82,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/message/{id}", methods={"POST"}, name="addUpvote")
+     * @Route("/message/upvote/{id}", methods={"POST"}, name="addUpvote")
      */
     public function addUpvote($id)
     {
@@ -101,5 +101,27 @@ class MessageController extends AbstractController
         }
 
         return new JsonResponse("Succesfully added an upvote.", $statuscode);
+    }
+
+    /**
+     * @Route("/message/downvote/{id}", methods={"POST"}, name="addDownvote")
+     */
+    public function addDownvote($id)
+    {
+        $statuscode = 200;
+
+        $message = null;
+        try {
+            $message = $this->messageModel->addDownvote($id);
+            if ($message == null) {
+                $statuscode = 404;
+            }
+        } catch (\InvalidArgumentException $exception) {
+            $statuscode = 400;
+        } catch (\PDOException $exception) {
+            $statuscode = 500;
+        }
+
+        return new JsonResponse("Succesfully added a downvote.", $statuscode);
     }
 }
