@@ -4,7 +4,6 @@ namespace App\Model;
 
 use \PDO;
 
-
 class Connection
 {
     private $pdo;

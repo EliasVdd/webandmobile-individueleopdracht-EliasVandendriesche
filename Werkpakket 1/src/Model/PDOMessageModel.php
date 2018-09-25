@@ -2,7 +2,6 @@
 
 namespace App\Model;
 
-
 class PDOMessageModel implements MessageModel
 {
     private $connection;
@@ -34,7 +33,8 @@ class PDOMessageModel implements MessageModel
         return $statement->fetchAll();
     }
 
-    public function getAllMessages(){
+    public function getAllMessages()
+    {
         $statement = $this->connection->getPDO()->prepare('SELECT * FROM Messages');
         $statement->execute();
         return $statement->fetchAll();
