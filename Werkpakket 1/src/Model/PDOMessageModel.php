@@ -16,6 +16,10 @@ class PDOMessageModel implements MessageModel
 
     public function findMessageByContentAndCategory($content, $category)
     {
+        if (trim($content) == '' || trim($category) == '') {
+            throw new \InvalidArgumentException();
+        }
+
         $pdo = $this->connection->getPDO();
 
         $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%" and category like "%":category"%"');
@@ -40,6 +44,10 @@ class PDOMessageModel implements MessageModel
 
     public function getMessage($id)
     {
+        if ($id <= 0) {
+            throw new \InvalidArgumentException();
+        }
+
         $pdo = $this->connection->getPDO();
 
         $statement = $pdo->prepare('SELECT * FROM Messages WHERE id = :id');
@@ -49,15 +57,37 @@ class PDOMessageModel implements MessageModel
         return $statement->fetchAll();
     }
 
-    public function findMessageByContent($content)
+    public function addUpvote($id)
     {
+        $upvotes = $this->getMessage($id)[0]['upvotes'] + 1;
+
+        if ($id <= 0) {
+            throw new \InvalidArgumentException();
+        }
+
         $pdo = $this->connection->getPDO();
 
-        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%"');
-        $statement->bindParam(':content', $content, \PDO::PARAM_STR);
-        $statement->execute();
+        $statement = $pdo->prepare('UPDATE Messages SET upvotes=:upvotes WHERE id=:id');
+        $statement->bindParam(':upvotes', $upvotes, \PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, \PDO::PARAM_INT);
 
-        return $statement->fetchAll();
+        return $statement->execute();
     }
 
+    public function addDownvote($id)
+    {
+        $downvotes = $this->getMessage($id)[0]['downvotes'] + 1;
+
+        if ($id <= 0) {
+            throw new \InvalidArgumentException();
+        }
+
+        $pdo = $this->connection->getPDO();
+
+        $statement = $pdo->prepare('UPDATE Messages SET downvotes=:downvotes WHERE id=:id');
+        $statement->bindParam(':downvotes', $downvotes, \PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        return $statement->execute();
+    }
 }
