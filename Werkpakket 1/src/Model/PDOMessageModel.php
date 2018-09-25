@@ -14,6 +14,10 @@ class PDOMessageModel implements MessageModel
 
     public function findMessageByContentAndCategory($content, $category)
     {
+        if (trim($content) == '' || trim($category) == '') {
+            throw new \InvalidArgumentException();
+        }
+
         $pdo = $this->connection->getPDO();
 
         $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%" and category like "%":category"%"');
@@ -38,6 +42,10 @@ class PDOMessageModel implements MessageModel
 
     public function getMessage($id)
     {
+        if ($id <= 0) {
+            throw new \InvalidArgumentException();
+        }
+
         $pdo = $this->connection->getPDO();
 
         $statement = $pdo->prepare('SELECT * FROM Messages WHERE id = :id');

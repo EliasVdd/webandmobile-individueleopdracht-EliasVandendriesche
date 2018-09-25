@@ -21,15 +21,16 @@ class MessageController extends AbstractController
     /**
      * @Route("/message", name="message")
      */
-    public function getAllMessages(){
+    public function getAllMessages()
+    {
         $statusCode = 200;
         $messages = null;
-        try{
+        try {
             $messages = $this->messageModel->getAllMessages();
-            if ($messages == null){
+            if ($messages == null) {
                 $statusCode = 404;
             }
-        } catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $statusCode = 500;
         }
         return new JsonResponse($messages, $statusCode);
