@@ -25,18 +25,7 @@ class PDOMessageModel implements MessageModel
         $statement->bindParam(':category', $category, \PDO::PARAM_STR);
         $statement->execute();
 
-        $statement->bindColumn(1, $id, \PDO::PARAM_INT);
-        $statement->bindColumn(2, $content, \PDO::PARAM_STR);
-        $statement->bindColumn(3, $category, \PDO::PARAM_STR);
-        $statement->bindColumn(4, $upvotes, \PDO::PARAM_INT);
-        $statement->bindColumn(5, $downvotes, \PDO::PARAM_INT);
-
-        $message = null;
-        if ($statement->fetch(\PDO::FETCH_BOUND)) {
-            $message = ['id' => $id, 'content' => $content, 'category' => $category,
-                        'upvotes' => $upvotes, 'downvotes' => $downvotes];
-        }
-        return $message;
+        return $statement->fetchAll();
     }
 
     public function findMessageByContent($content)
@@ -46,18 +35,7 @@ class PDOMessageModel implements MessageModel
         $statement->bindParam(':content', $content, \PDO::PARAM_STR);
         $statement->execute();
 
-        $statement->bindColumn(1, $id, \PDO::PARAM_INT);
-        $statement->bindColumn(2, $content, \PDO::PARAM_STR);
-        $statement->bindColumn(3, $category, \PDO::PARAM_STR);
-        $statement->bindColumn(4, $upvotes, \PDO::PARAM_INT);
-        $statement->bindColumn(5, $downvotes, \PDO::PARAM_INT);
-
-        $message = null;
-        if ($statement->fetch(\PDO::FETCH_BOUND)) {
-            $message = ['id' => $id, 'content' => $content, 'category' => $category,
-                'upvotes' => $upvotes, 'downvotes' => $downvotes];
-        }
-        return $message;
+        return $statement->fetchAll();
     }
 
     public function getAllMessages()
