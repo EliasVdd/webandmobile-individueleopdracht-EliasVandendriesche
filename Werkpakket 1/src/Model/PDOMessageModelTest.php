@@ -80,6 +80,7 @@ class PDOMessageModelTest extends TestCase
         $actualMessage = $messageModel->getMessage(1);
         $expectedMessage = $this->providerMessages()[0];
         $this->assertEquals('array', gettype($actualMessage));
+        $this->assertEquals(count($expectedMessage), count($actualMessage));
         $this->assertEquals($expectedMessage, $actualMessage);
     }
 }
