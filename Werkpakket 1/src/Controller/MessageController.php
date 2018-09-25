@@ -21,15 +21,16 @@ class MessageController extends AbstractController
     /**
      * @Route("/message", methods={"GET"}, name="message")
      */
-    public function getAllMessages(){
+    public function getAllMessages()
+    {
         $statusCode = 200;
         $messages = null;
-        try{
+        try {
             $messages = $this->messageModel->getAllMessages();
-            if ($messages == null){
+            if ($messages == null) {
                 $statusCode = 404;
             }
-        } catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $statusCode = 500;
         }
         return new JsonResponse($messages, $statusCode);
@@ -77,5 +78,27 @@ class MessageController extends AbstractController
         }
 
         return new JsonResponse($messages, $statuscode);
+    }
+
+    /**
+     * @Route("/messages/{content}", methods={"GET"}, name="getMessageByContent")
+     */
+    public function findMessageByContent($content)
+    {
+        $statusCode = 200;
+        $messages = null;
+
+        try {
+            $messages = $this->messageModel->findMessageByContent($content);
+            if ($messages == null) {
+                $statusCode = 404;
+            }
+        } catch (\InvalidArgumentException $exception) {
+            $statusCode = 404;
+        } catch (\PDOException $exception){
+            $statusCode = 500;
+        }
+
+        return new JsonResponse($messages, $statusCode);
     }
 }
