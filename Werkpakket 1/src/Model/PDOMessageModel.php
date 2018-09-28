@@ -40,6 +40,7 @@ class PDOMessageModel implements MessageModel
         $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%"');
         $statement->bindParam(':content', $content, \PDO::PARAM_STR);
         $statement->execute();
+
         return $statement->fetchAll();
     }
     
@@ -63,12 +64,26 @@ class PDOMessageModel implements MessageModel
         $statement->execute();
         
         return $statement->fetchAll();
+
+        $statement->bindColumn(1, $id, \PDO::PARAM_INT);
+        $statement->bindColumn(2, $content, \PDO::PARAM_STR);
+        $statement->bindColumn(3, $category, \PDO::PARAM_STR);
+        $statement->bindColumn(4, $upvotes, \PDO::PARAM_INT);
+        $statement->bindColumn(5, $downvotes, \PDO::PARAM_INT);
+
+        $message = null;
+        if ($statement->fetch(\PDO::FETCH_BOUND)) {
+            $message = ['id' => $id, 'content' => $content, 'category' => $category,
+                'upvotes' => $upvotes, 'downvotes' => $downvotes];
+        }
+        return $message;
     }
     
     public function addUpvote($id)
     {
         $upvotes = $this->getMessage($id)[0]['upvotes'] + 1;
-        
+        $upvotes = $this->getMessage($id)['upvotes'] + 1;
+
         if ($id <= 0) {
             throw new \InvalidArgumentException();
         }
@@ -85,7 +100,8 @@ class PDOMessageModel implements MessageModel
     public function addDownvote($id)
     {
         $downvotes = $this->getMessage($id)[0]['downvotes'] + 1;
-        
+        $downvotes = $this->getMessage($id)['downvotes'] + 1;
+
         if ($id <= 0) {
             throw new \InvalidArgumentException();
         }
