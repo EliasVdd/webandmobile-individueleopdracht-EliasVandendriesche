@@ -30,13 +30,13 @@ class PDOMessageModelTest extends TestCase
                 . $message['id'] . ", '" . $message['content'] . "', '" . $message['category'] . "', "
                 . $message['upvotes'] . ", " . $message['downvotes'] . ");");
             }
-        }
+    }
         
         public function tearDown()
         {
             $this->connection = null;
         }
-
+        
 		public function providerMessages()
         {
             return [[
@@ -73,44 +73,47 @@ class PDOMessageModelTest extends TestCase
                     $this->assertContains($actualMessage, $actualMessages);
                 }
             }
+            
+            
+            
+            public function testGetMessage_messageInDatabase_Message()
+            {
+                $messageModel = new PDOMessageModel($this->connection);
+                $actualMessage = $messageModel->getMessage(1);
+                $expectedMessage = $this->providerMessages()[0];
+                $this->assertEquals('array', gettype($actualMessage));
+                $this->assertEquals(count($expectedMessage), count($actualMessage));
+                $this->assertEquals($expectedMessage, $actualMessage);
+            }
+            
+            public function testAddUpvote()
+            {
+                //Arrange
+                $messageModel = new PDOMessageModel($this->connection);
+                $expectedUpVotes = 6;
+                
+                //Act
+                $isSuccessful = $messageModel->addUpvote(1);
+                $actualVoteCount = $messageModel->getMessage(1)['upvotes'];
+                
+                //Assert
+                $this->assertTrue($isSuccessful);
+                $this->assertEquals($expectedUpVotes, $actualVoteCount);
+            }
+            
+            public function testAddDownVote()
+            {
+                //Arrange
+                $messageModel = new PDOMessageModel($this->connection);
+                $expectedDownVotes = 1;
+                
+                //Act
+                $isSuccessful = $messageModel->addDownvote(1);
+                $actualVoteCount = $messageModel->getMessage(1)['downvotes'];
+                
+                //Assert
+                $this->assertTrue($isSuccessful);
+                $this->assertEquals($expectedDownVotes, $actualVoteCount);
+            }
         }
-    }
-
-    public function testGetMessage_messageInDatabase_Message()
-    {
-        $messageModel = new PDOMessageModel($this->connection);
-        $actualMessage = $messageModel->getMessage(1);
-        $expectedMessage = $this->providerMessages()[0];
-        $this->assertEquals('array', gettype($actualMessage));
-        $this->assertEquals(count($expectedMessage), count($actualMessage));
-        $this->assertEquals($expectedMessage, $actualMessage);
-    }
-
-    public function testAddUpvote(){
-        //Arrange
-        $messageModel = new PDOMessageModel($this->connection);
-        $expectedUpVotes = 6;
-
-        //Act
-        $isSuccessful = $messageModel->addUpvote(1);
-        $actualVoteCount = $messageModel->getMessage(1)['upvotes'];
-
-        //Assert
-        $this->assertTrue($isSuccessful);
-        $this->assertEquals($expectedUpVotes, $actualVoteCount);
-    }
-
-    public function testAddDownVote(){
-        //Arrange
-        $messageModel = new PDOMessageModel($this->connection);
-        $expectedDownVotes = 1;
-
-        //Act
-        $isSuccessful = $messageModel->addDownvote(1);
-        $actualVoteCount = $messageModel->getMessage(1)['downvotes'];
-
-        //Assert
-        $this->assertTrue($isSuccessful);
-        $this->assertEquals($expectedDownVotes, $actualVoteCount);
-    }
-}
+        
