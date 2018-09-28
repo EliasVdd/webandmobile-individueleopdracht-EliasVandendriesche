@@ -73,7 +73,7 @@ class PDOMessageModel implements MessageModel
 
     public function addUpvote($id)
     {
-        $upvotes = $this->getMessage($id)[0]['upvotes'] + 1;
+        $upvotes = $this->getMessage($id)['upvotes'] + 1;
 
         if ($id <= 0) {
             throw new \InvalidArgumentException();
@@ -90,7 +90,7 @@ class PDOMessageModel implements MessageModel
 
     public function addDownvote($id)
     {
-        $downvotes = $this->getMessage($id)[0]['downvotes'] + 1;
+        $downvotes = $this->getMessage($id)['downvotes'] - 1;
 
         if ($id <= 0) {
             throw new \InvalidArgumentException();

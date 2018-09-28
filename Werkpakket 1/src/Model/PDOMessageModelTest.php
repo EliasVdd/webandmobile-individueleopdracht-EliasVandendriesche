@@ -83,4 +83,32 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals(count($expectedMessage), count($actualMessage));
         $this->assertEquals($expectedMessage, $actualMessage);
     }
+
+    public function testAddUpvote(){
+        //Arrange
+        $messageModel = new PDOMessageModel($this->connection);
+        $expectedUpVotes = 6;
+
+        //Act
+        $isSuccessful = $messageModel->addUpvote(1);
+        $actualVoteCount = $messageModel->getMessage(1)['upvotes'];
+
+        //Assert
+        $this->assertTrue($isSuccessful);
+        $this->assertEquals($expectedUpVotes, $actualVoteCount);
+    }
+
+    public function testAddDownVote(){
+        //Arrange
+        $messageModel = new PDOMessageModel($this->connection);
+        $expectedDownVotes = 1;
+
+        //Act
+        $isSuccessful = $messageModel->addDownvote(1);
+        $actualVoteCount = $messageModel->getMessage(1)['downvotes'];
+
+        //Assert
+        $this->assertTrue($isSuccessful);
+        $this->assertEquals($expectedDownVotes, $actualVoteCount);
+    }
 }
