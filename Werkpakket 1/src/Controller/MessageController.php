@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Model\Connection;
 use App\Model\MessageModel;
 use App\Model\PDOMessageModel;
-use App\Model\ReactionModel;
-use App\Model\PDOReactionModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

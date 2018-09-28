@@ -73,8 +73,7 @@ class PDOMessageModelTest extends TestCase
                     $this->assertContains($actualMessage, $actualMessages);
                 }
             }
-        }
-    }
+      
 
     public function testGetMessage_messageInDatabase_Message()
     {
