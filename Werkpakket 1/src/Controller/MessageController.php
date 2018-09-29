@@ -13,15 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class MessageController extends AbstractController
 {
     private $messageModel;
-
+    
     public function __construct(MessageModel $messageModel)
     {
         $this->messageModel = $messageModel;
     }
-
+    
     /**
-     * @Route("/message", methods={"GET"}, name="message")
-     */
+    * @Route("/message", methods={"GET"}, name="message")
+    */
     public function getAllMessages()
     {
         $statusCode = 200;
@@ -36,14 +36,14 @@ class MessageController extends AbstractController
         }
         return new JsonResponse($messages, $statusCode);
     }
-
+    
     /**
-     * @Route("/message/{id}", methods={"GET"}, name="getMessageById")
-     */
+    * @Route("/message/{id}", methods={"GET"}, name="getMessageById")
+    */
     public function getMessage($id)
     {
         $statuscode = 200;
-
+        
         $message = null;
         try {
             $message = $this->messageModel->getMessage($id);
@@ -55,18 +55,18 @@ class MessageController extends AbstractController
         } catch (\PDOException $exception) {
             $statuscode = 500;
         }
-
+        
         return new JsonResponse($message, $statuscode);
     }
-
+    
     /**
-     * @Route("/message/find/{content}", methods={"GET"}, name="getMessageByContent")
-     */
+    * @Route("/message/find/{content}", methods={"GET"}, name="getMessageByContent")
+    */
     public function findMessageByContent($content)
     {
         $statusCode = 200;
         $messages = null;
-
+        
         try {
             $messages = $this->messageModel->findMessageByContent($content);
             if ($messages == null) {
@@ -77,18 +77,18 @@ class MessageController extends AbstractController
         } catch (\PDOException $exception){
             $statusCode = 500;
         }
-
+        
         return new JsonResponse($messages, $statusCode);
     }
-
-
+    
+    
     /**
-     * @Route("/message/find/{content}/{category}", methods={"GET"}, name="getMessageByContentAndCategory")
-     */
+    * @Route("/message/find/{content}/{category}", methods={"GET"}, name="getMessageByContentAndCategory")
+    */
     public function findMessageByContentAndCategory($content, $category)
     {
         $statuscode = 200;
-
+        
         $messages = null;
         try {
             $messages = $this->messageModel->findMessageByContentAndCategory($content, $category);
@@ -100,17 +100,17 @@ class MessageController extends AbstractController
         } catch (\PDOException $exception) {
             $statuscode = 500;
         }
-
+        
         return new JsonResponse($messages, $statuscode);
     }
-
+    
     /**
-     * @Route("/message/upvote/{id}", methods={"POST"}, name="addUpvote")
-     */
+    * @Route("/message/upvote/{id}", methods={"POST"}, name="addUpvote")
+    */
     public function addUpvote($id)
     {
         $statuscode = 200;
-
+        
         $message = null;
         try {
             $message = $this->messageModel->addUpvote($id);
@@ -122,17 +122,17 @@ class MessageController extends AbstractController
         } catch (\PDOException $exception) {
             $statuscode = 500;
         }
-
+        
         return new JsonResponse("Succesfully added an upvote.", $statuscode);
     }
-
+    
     /**
-     * @Route("/message/downvote/{id}", methods={"POST"}, name="addDownvote")
-     */
+    * @Route("/message/downvote/{id}", methods={"POST"}, name="addDownvote")
+    */
     public function addDownvote($id)
     {
         $statuscode = 200;
-
+        
         $message = null;
         try {
             $message = $this->messageModel->addDownvote($id);
@@ -144,7 +144,7 @@ class MessageController extends AbstractController
         } catch (\PDOException $exception) {
             $statuscode = 500;
         }
-
+        
         return new JsonResponse("Succesfully added a downvote.", $statuscode);
     }
 }

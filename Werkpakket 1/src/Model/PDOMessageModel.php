@@ -104,6 +104,4 @@ class PDOMessageModel implements MessageModel
 
         return $statement->execute();
     }
-
-
 }

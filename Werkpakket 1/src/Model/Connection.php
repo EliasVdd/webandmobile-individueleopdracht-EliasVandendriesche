@@ -7,7 +7,7 @@ use \PDO;
 class Connection
 {
     private $pdo;
-
+    
     public function __construct($database, $user = null, $password = null)
     {
         $this->pdo = new \PDO($database, $user, $password);
@@ -16,7 +16,7 @@ class Connection
             PDO::ERRMODE_EXCEPTION
         );
     }
-
+    
     public function getPDO()
     {
         return $this->pdo;
