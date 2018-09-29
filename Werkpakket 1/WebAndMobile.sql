@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Gegenereerd op: 20 sep 2018 om 08:11
--- Serverversie: 5.7.23-0ubuntu0.16.04.1
--- PHP-versie: 7.2.9-1+ubuntu16.04.1+deb.sury.org+1
+-- Generation Time: Sep 29, 2018 at 10:08 AM
+-- Server version: 5.7.23-0ubuntu0.16.04.1
+-- PHP Version: 7.0.32-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `Messages`
+-- Table structure for table `Messages`
 --
 
 CREATE TABLE `Messages` (
@@ -35,7 +35,7 @@ CREATE TABLE `Messages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Gegevens worden geëxporteerd voor tabel `Messages`
+-- Dumping data for table `Messages`
 --
 
 INSERT INTO `Messages` (`id`, `content`, `category`, `upvotes`, `downvotes`) VALUES
@@ -46,22 +46,47 @@ INSERT INTO `Messages` (`id`, `content`, `category`, `upvotes`, `downvotes`) VAL
 (5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit.', 'Hardware', 3, 0),
 (6, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit.', 'React', 0, 0);
 
+-- --------------------------------------------------------
+
 --
--- Indexen voor geëxporteerde tabellen
+-- Table structure for table `Reactions`
+--
+
+CREATE TABLE `Reactions` (
+  `messageId` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Reactions`
+--
+
+INSERT INTO `Reactions` (`messageId`, `content`, `token`) VALUES
+(1, 'reactieopmessage1', 'saltvoorextrapunten15baf4e949c7150.34092535');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `Messages`
+-- Indexes for table `Messages`
 --
 ALTER TABLE `Messages`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- Indexes for table `Reactions`
+--
+ALTER TABLE `Reactions`
+  ADD UNIQUE KEY `token` (`token`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `Messages`
+-- AUTO_INCREMENT for table `Messages`
 --
 ALTER TABLE `Messages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
