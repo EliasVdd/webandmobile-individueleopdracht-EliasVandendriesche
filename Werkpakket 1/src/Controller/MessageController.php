@@ -74,7 +74,7 @@ class MessageController extends AbstractController
             }
         } catch (\InvalidArgumentException $exception) {
             $statusCode = 404;
-        } catch (\PDOException $exception){
+        } catch (\PDOException $exception) {
             $statusCode = 500;
         }
         

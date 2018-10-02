@@ -69,7 +69,7 @@ class PDOMessageModelTest extends TestCase
         $expectedMessages = $this->providerMessages();
         $this->assertEquals('array', gettype($actualMessages));
         $this->assertEquals(count($expectedMessages), count($actualMessages));
-        foreach ($actualMessages as  $actualMessage) {
+        foreach ($actualMessages as $actualMessage) {
             $this->assertContains($actualMessage, $actualMessages);
         }
     }
@@ -84,7 +84,8 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedMessage, $actualMessage);
     }
 
-    public function testAddUpvote(){
+    public function testAddUpvote()
+    {
         //Arrange
         $messageModel = new PDOMessageModel($this->connection);
         $expectedUpVotes = 6;
@@ -98,7 +99,8 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedUpVotes, $actualVoteCount);
     }
 
-    public function testAddDownVote(){
+    public function testAddDownVote()
+    {
         //Arrange
         $messageModel = new PDOMessageModel($this->connection);
         $expectedDownVotes = 3;
