@@ -77,11 +77,11 @@ class PDOMessageModel implements MessageModel
 
     public function addUpvote($id)
     {
-        $upvotes = $this->getMessage($id)['upvotes'] + 1;
-
         if ($id <= 0) {
             throw new \InvalidArgumentException();
         }
+
+        $upvotes = $this->getMessage($id)['upvotes'] + 1;
 
         $pdo = $this->connection->getPDO();
 
@@ -94,11 +94,11 @@ class PDOMessageModel implements MessageModel
 
     public function addDownvote($id)
     {
-        $downvotes = $this->getMessage($id)['downvotes'] + 1;
-
         if ($id <= 0) {
             throw new \InvalidArgumentException();
         }
+
+        $downvotes = $this->getMessage($id)['downvotes'] + 1;
 
         $pdo = $this->connection->getPDO();
 

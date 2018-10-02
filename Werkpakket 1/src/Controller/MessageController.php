@@ -66,7 +66,7 @@ class MessageController extends AbstractController
     {
         $statusCode = 200;
         $messages = null;
-        
+
         try {
             $messages = $this->messageModel->findMessageByContent($content);
             if ($messages == null) {
@@ -77,10 +77,9 @@ class MessageController extends AbstractController
         } catch (\PDOException $exception) {
             $statusCode = 500;
         }
-        
+
         return new JsonResponse($messages, $statusCode);
     }
-    
     
     /**
     * @Route("/message/find/{content}/{category}", methods={"GET"}, name="getMessageByContentAndCategory")

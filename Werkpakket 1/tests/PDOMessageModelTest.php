@@ -86,9 +86,9 @@ class PDOMessageModelTest extends TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
-    public function testGetMessage_invalidParameter_exception()
+    public function testGetMessage_invalidParameter_Exception()
     {
         $messageModel = new PDOMessageModel($this->connection);
         $messageModel->getMessage(-1);
@@ -110,9 +110,9 @@ class PDOMessageModelTest extends TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
-    public function testAddUpvote_invalidParameter_exception()
+    public function testAddUpvote_invalidParameter_Exception()
     {
         $messageModel = new PDOMessageModel($this->connection);
         $messageModel->addUpvote(-1);
@@ -134,9 +134,9 @@ class PDOMessageModelTest extends TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
-    public function testAddDownvote_invalidParameter_exception()
+    public function testAddDownvote_invalidParameter_Exception()
     {
         $messageModel = new PDOMessageModel($this->connection);
         $messageModel->addDownvote(-1);
