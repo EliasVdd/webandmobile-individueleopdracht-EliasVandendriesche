@@ -101,7 +101,7 @@ class PDOMessageModelTest extends TestCase
     public function testAddDownVote(){
         //Arrange
         $messageModel = new PDOMessageModel($this->connection);
-        $expectedDownVotes = 1;
+        $expectedDownVotes = 3;
 
         //Act
         $isSuccessful = $messageModel->addDownvote(1);
