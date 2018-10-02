@@ -20,7 +20,7 @@ class PDOMessageModel implements MessageModel
 
         $pdo = $this->connection->getPDO();
 
-        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%" and category like "%":category"%"');
+        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%" and category LIKE "%":category"%"');
         $statement->bindParam(':content', $content, \PDO::PARAM_STR);
         $statement->bindParam(':category', $category, \PDO::PARAM_STR);
         $statement->execute();

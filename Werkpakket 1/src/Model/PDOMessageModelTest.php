@@ -41,7 +41,7 @@ class PDOMessageModelTest extends TestCase
     {
         return [[
             'id'=>1,
-            'content'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit.',
+            'content'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit. Giganteum',
             'category'=>'Hardware',
             'upvotes'=>5,
             'downvotes'=>2
@@ -84,7 +84,8 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedMessage, $actualMessage);
     }
 
-    public function testAddUpvote(){
+    public function testAddUpvote()
+    {
         //Arrange
         $messageModel = new PDOMessageModel($this->connection);
         $expectedUpVotes = 6;
@@ -98,7 +99,8 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedUpVotes, $actualVoteCount);
     }
 
-    public function testAddDownVote(){
+    public function testAddDownVote()
+    {
         //Arrange
         $messageModel = new PDOMessageModel($this->connection);
         $expectedDownVotes = 3;
@@ -110,5 +112,19 @@ class PDOMessageModelTest extends TestCase
         //Assert
         $this->assertTrue($isSuccessful);
         $this->assertEquals($expectedDownVotes, $actualVoteCount);
+    }
+
+    public function testFindMessageByContent()
+    {
+        //Arrange
+        $messageModel = new PDOMessageModel($this->connection);
+        $expectedMessage = $messageModel->getMessage(1);
+
+        //Act
+        $actualMessage = $messageModel->findMessageByContent('Giganteum');
+
+        //Assert
+        $this->assertNotNull($actualMessage);
+        $this->assertEquals($expectedMessage, $actualMessage);
     }
 }
