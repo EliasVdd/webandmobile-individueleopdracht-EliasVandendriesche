@@ -29,6 +29,10 @@
         </whitelist>
     </filter>
 
+    <logging>
+        <log type="coverage-html" target="./tests/coverage/html/"/>
+    </logging>
+
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
