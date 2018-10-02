@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class PDOMessageModelTest extends TestCase
@@ -84,6 +85,15 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedMessage, $actualMessage);
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testGetMessage_invalidParameter_exception()
+    {
+        $messageModel = new PDOMessageModel($this->connection);
+        $messageModel->getMessage(-1);
+    }
+
     public function testAddUpvote()
     {
         //Arrange
@@ -99,7 +109,16 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedUpVotes, $actualVoteCount);
     }
 
-    public function testAddDownVote()
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testAddUpvote_invalidParameter_exception()
+    {
+        $messageModel = new PDOMessageModel($this->connection);
+        $messageModel->addUpvote(-1);
+    }
+
+    public function testAddDownvote()
     {
         //Arrange
         $messageModel = new PDOMessageModel($this->connection);
@@ -112,5 +131,14 @@ class PDOMessageModelTest extends TestCase
         //Assert
         $this->assertTrue($isSuccessful);
         $this->assertEquals($expectedDownVotes, $actualVoteCount);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testAddDownvote_invalidParameter_exception()
+    {
+        $messageModel = new PDOMessageModel($this->connection);
+        $messageModel->addDownvote(-1);
     }
 }

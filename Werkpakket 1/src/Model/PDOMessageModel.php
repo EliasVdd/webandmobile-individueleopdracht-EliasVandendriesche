@@ -30,6 +30,10 @@ class PDOMessageModel implements MessageModel
 
     public function findMessageByContent($content)
     {
+        if (trim($content) == '') {
+            throw new \InvalidArgumentException();
+        }
+
         $pdo = $this->connection->getPDO();
         $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%"');
         $statement->bindParam(':content', $content, \PDO::PARAM_STR);
