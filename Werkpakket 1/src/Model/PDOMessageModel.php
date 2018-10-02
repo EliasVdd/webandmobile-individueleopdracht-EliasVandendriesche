@@ -20,9 +20,13 @@ class PDOMessageModel implements MessageModel
 
         $pdo = $this->connection->getPDO();
 
-        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%" and category LIKE "%":category"%"');
-        $statement->bindParam(':content', $content, \PDO::PARAM_STR);
-        $statement->bindParam(':category', $category, \PDO::PARAM_STR);
+        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE ? and category LIKE ?');
+
+        $content = '%' . $content . '%';
+        $category = '%' . $category . '%';
+
+        $statement->bindParam(1, $content);
+        $statement->bindParam(2, $category);
         $statement->execute();
 
         return $statement->fetchAll();
@@ -30,14 +34,10 @@ class PDOMessageModel implements MessageModel
 
     public function findMessageByContent($content)
     {
-        if (trim($content) == '') {
-            throw new \InvalidArgumentException();
-        }
-
         $pdo = $this->connection->getPDO();
-        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE "%":content"%"');
-        $statement->bindParam(':content', $content, \PDO::PARAM_STR);
-        $statement->execute();
+        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE ?');
+        $content = '%' . $content . '%';
+        $statement->execute([$content]);
 
         return $statement->fetchAll();
     }

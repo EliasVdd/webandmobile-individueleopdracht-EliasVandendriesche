@@ -42,7 +42,7 @@ class PDOMessageModelTest extends TestCase
     {
         return [[
             'id'=>1,
-            'content'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit.',
+            'content'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit. Giganteum',
             'category'=>'Hardware',
             'upvotes'=>5,
             'downvotes'=>2
@@ -140,5 +140,36 @@ class PDOMessageModelTest extends TestCase
     {
         $messageModel = new PDOMessageModel($this->connection);
         $messageModel->addDownvote(-1);
+    }
+
+    public function testFindMessageByContent()
+    {
+        //Arrange
+        $messageModel = new PDOMessageModel($this->connection);
+        $expectedMessage = $messageModel->getMessage(1);
+
+        //Act
+        $actualMessage = $messageModel->findMessageByContent('Giganteum');
+
+        //Assert
+        $this->assertNotNull($actualMessage);
+        $this->assertEquals($expectedMessage['id'], $actualMessage[0]['id']);
+        $this->assertEquals($expectedMessage['content'], $actualMessage[0]['content']);
+    }
+
+    public function testFindMessageByContentAndCategory()
+    {
+        ///Arrange
+        $messageModel = new PDOMessageModel($this->connection);
+        $expectedMessage = $messageModel->getMessage(1);
+
+        //Act
+        $actualMessage = $messageModel->findMessageByContentAndCategory('Giganteum', 'Hardware');
+
+        //Assert
+        $this->assertNotNull($actualMessage);
+        $this->assertEquals($expectedMessage['id'], $actualMessage[0]['id']);
+        $this->assertEquals($expectedMessage['content'], $actualMessage[0]['content']);
+
     }
 }
