@@ -6,6 +6,7 @@
 /vendor/
 /tests/coverage/
 /.idea/workspace.xml
+/.idea/Werkpakket 1.iml
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
