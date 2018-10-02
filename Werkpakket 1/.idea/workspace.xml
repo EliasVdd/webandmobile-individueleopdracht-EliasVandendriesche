@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6ab3d4d6-c379-48af-9e6c-1059a138308c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Controller/MessageController.php.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Controller/MessageController.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Controller/ReactionController.php.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Controller/ReactionController.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Controller/dashboard.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Controller/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Controller/index.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Controller/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Kernel.php.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Kernel.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Model/Connection.php.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Model/Connection.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Model/MessageModel.php.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Model/MessageModel.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Model/PDOMessageModel.php.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Model/PDOMessageModel.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Model/PDOReactionModel.php.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Model/PDOReactionModel.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Model/ReactionModel.php.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Model/ReactionModel.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Model/dashboard.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Model/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/Model/index.html" afterPath="$PROJECT_DIR$/tests/coverage/html/Model/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/dashboard.html" afterPath="$PROJECT_DIR$/tests/coverage/html/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/coverage/html/index.html" afterPath="$PROJECT_DIR$/tests/coverage/html/index.html" />
-    </list>
+    <list default="true" id="6ab3d4d6-c379-48af-9e6c-1059a138308c" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,8 +67,8 @@
       <file leaf-file-name="PDOMessageModelTest.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/PDOMessageModelTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="72" column="13" lean-forward="false" selection-start-line="72" selection-start-column="13" selection-end-line="72" selection-end-column="13" />
+            <state relative-caret-position="310">
+              <caret line="77" column="24" lean-forward="true" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
               <folding>
                 <marker date="1538471540483" expanded="true" signature="465:723" ph="CREATE TABLE... Messages" />
                 <marker date="1538471540483" expanded="true" signature="864:1115" ph="INSERT INTO Messages... " />
@@ -459,7 +443,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15020000" />
+    <option name="totallyTimeSpent" value="15135000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="953" y="0" width="974" height="1087" extended-state="0" />
@@ -797,13 +781,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebAndMobile.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="838">
@@ -917,10 +894,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/PDOMessageModelTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="72" column="13" lean-forward="false" selection-start-line="72" selection-start-column="13" selection-end-line="72" selection-end-column="13" />
+        <state relative-caret-position="310">
+          <caret line="77" column="24" lean-forward="true" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
           <folding>
             <marker date="1538471540483" expanded="true" signature="465:723" ph="CREATE TABLE... Messages" />
             <marker date="1538471540483" expanded="true" signature="864:1115" ph="INSERT INTO Messages... " />
