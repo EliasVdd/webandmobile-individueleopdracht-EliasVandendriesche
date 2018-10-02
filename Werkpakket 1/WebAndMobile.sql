@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 29, 2018 at 10:08 AM
+-- Generation Time: Oct 02, 2018 at 09:19 AM
 -- Server version: 5.7.23-0ubuntu0.16.04.1
 -- PHP Version: 7.0.32-0ubuntu0.16.04.1
 
@@ -55,15 +55,15 @@ INSERT INTO `Messages` (`id`, `content`, `category`, `upvotes`, `downvotes`) VAL
 CREATE TABLE `Reactions` (
   `messageId` int(11) NOT NULL,
   `content` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL
+  `reactionToken` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Reactions`
 --
 
-INSERT INTO `Reactions` (`messageId`, `content`, `token`) VALUES
-(1, 'reactieopmessage1', 'saltvoorextrapunten15baf4e949c7150.34092535');
+INSERT INTO `Reactions` (`messageId`, `content`, `reactionToken`) VALUES
+(1, 'JonasReageertLol', 'saltvoorextrapunten15bb33469431fa2.28065481');
 
 --
 -- Indexes for dumped tables
@@ -74,12 +74,6 @@ INSERT INTO `Reactions` (`messageId`, `content`, `token`) VALUES
 --
 ALTER TABLE `Messages`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `Reactions`
---
-ALTER TABLE `Reactions`
-  ADD UNIQUE KEY `token` (`token`);
 
 --
 -- AUTO_INCREMENT for dumped tables

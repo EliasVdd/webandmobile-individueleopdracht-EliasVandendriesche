@@ -2,7 +2,6 @@
 
 namespace App\Model;
 
-
 class PDOReactionModel implements ReactionModel
 {
     private $connection;
@@ -12,16 +11,19 @@ class PDOReactionModel implements ReactionModel
         $this->connection = $connection;
     }
     
-    public function postReactionByMessageId($id, $content){
+    public function postReactionByMessageId($id, $content)
+    {
         $pdo = $this->connection->getPDO();
         
-        $uniq = uniqid('saltvoorextrapunten'.$id,true);
+        $uniq = uniqid('saltvoorextrapunten'.$id, true);
         
-        $statement = $pdo->prepare('INSERT INTO Reactions (messageId, content, token) VALUES (:id, :content,:uniqid)');
+        $statement = $pdo->prepare('INSERT INTO Reactions (messageId, content, reactionToken) VALUES (:id, :content,:uniqid)');
         $statement->bindParam(':id', $id, \PDO::PARAM_INT);
         $statement->bindParam(':content', $content, \PDO::PARAM_STR);
         $statement->bindParam(':uniqid', $uniq, \PDO::PARAM_STR);
         
         $statement->execute();
+
+        return $uniq;
     }
 }

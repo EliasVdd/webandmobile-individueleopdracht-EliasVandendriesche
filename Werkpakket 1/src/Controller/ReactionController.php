@@ -27,17 +27,14 @@ class ReactionController extends AbstractController
         $statuscode = 200;
         $reactions = null;
         
-        try
-        {
+        try {
             $reactions = $this->reactionModel->postReactionByMessageId($id, $content);
-            if($reactions == null) {
+            if ($reactions == null) {
                 $statuscode = 404;
             }
-        } catch (\InvalidArgumentException $exception)
-        {
+        } catch (\InvalidArgumentException $exception) {
             $statuscode = 400;
-        } catch (\PDOException $ex) 
-        {
+        } catch (\PDOException $ex) {
             $statuscode = 500;
         }
         
