@@ -157,6 +157,16 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedMessage['content'], $actualMessage[0]['content']);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testFindMessageByContent_invalidParameter_Exception()
+    {
+        $messageModel = new PDOMessageModel($this->connection);
+        $messageModel->findMessageByContent("");
+        $messageModel->findMessageByContent(" ");
+    }
+
     public function testFindMessageByContentAndCategory()
     {
         ///Arrange
@@ -170,6 +180,16 @@ class PDOMessageModelTest extends TestCase
         $this->assertNotNull($actualMessage);
         $this->assertEquals($expectedMessage['id'], $actualMessage[0]['id']);
         $this->assertEquals($expectedMessage['content'], $actualMessage[0]['content']);
+    }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testFindMessageByContentAndCategory_invalidParameters_Exception()
+    {
+        $messageModel = new PDOMessageModel($this->connection);
+        $messageModel->findMessageByContentAndCategory("", "");
+        $messageModel->findMessageByContentAndCategory(" ", "");
+        $messageModel->findMessageByContentAndCategory("", " ");
     }
 }
