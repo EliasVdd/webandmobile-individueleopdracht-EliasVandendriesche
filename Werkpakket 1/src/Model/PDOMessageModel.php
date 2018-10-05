@@ -1,7 +1,4 @@
-<?php
-
-namespace App\Model;
-
+<?php namespace App\Model;
 
 class PDOMessageModel implements MessageModel
 {
