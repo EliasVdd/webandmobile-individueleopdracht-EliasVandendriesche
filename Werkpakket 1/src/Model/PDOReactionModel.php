@@ -15,15 +15,15 @@ class PDOReactionModel implements ReactionModel
     {
         $pdo = $this->connection->getPDO();
         
-        $uniq = uniqid('saltvoorextrapunten'.$id, true);
+        $token = uniqid('saltvoorextrapunten'.$id, true);
         
-        $statement = $pdo->prepare('INSERT INTO Reactions (messageId, content, reactionToken) VALUES (:id, :content,:uniqid)');
+        $statement = $pdo->prepare('INSERT INTO Reactions (messageId, content, reactionToken) VALUES (:id, :content, :token)');
         $statement->bindParam(':id', $id, \PDO::PARAM_INT);
         $statement->bindParam(':content', $content, \PDO::PARAM_STR);
-        $statement->bindParam(':uniqid', $uniq, \PDO::PARAM_STR);
+        $statement->bindParam(':token', $token, \PDO::PARAM_STR);
         
         $statement->execute();
 
-        return $uniq;
+        return $token;
     }
 }

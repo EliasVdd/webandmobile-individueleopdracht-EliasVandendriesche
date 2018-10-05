@@ -38,6 +38,6 @@ class ReactionController extends AbstractController
             $statuscode = 500;
         }
         
-        return new JsonResponse($content);
+        return new JsonResponse($content, $statuscode);
     }
 }

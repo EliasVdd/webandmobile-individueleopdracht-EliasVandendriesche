@@ -20,7 +20,7 @@ class MessageController extends AbstractController
     }
     
     /**
-    * @Route("/message", methods={"GET"}, name="message")
+    * @Route("/messages", methods={"GET"}, name="message")
     */
     public function getAllMessages()
     {

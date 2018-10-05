@@ -39,8 +39,11 @@ class PDOMessageModel implements MessageModel
         }
 
         $pdo = $this->connection->getPDO();
+
         $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE ?');
+
         $content = '%' . $content . '%';
+
         $statement->execute([$content]);
 
         return $statement->fetchAll();
@@ -48,8 +51,11 @@ class PDOMessageModel implements MessageModel
 
     public function getAllMessages()
     {
-        $statement = $this->connection->getPDO()->prepare('SELECT * FROM Messages');
+        $pdo = $this->connection->getPDO();
+
+        $statement = $pdo->prepare('SELECT * FROM Messages');
         $statement->execute();
+        
         return $statement->fetchAll();
     }
 
