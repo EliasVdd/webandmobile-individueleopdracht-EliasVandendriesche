@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import '../styles/MessageCard.css'
-import { Button, Card, CardText, CardTitle, CardActions, CardMenu, IconButton } from 'react-mdl';
+import { Button, Card, CardText, CardTitle, CardActions, Textfield, FABButton, Icon } from 'react-mdl';
 import  'react-mdl/extra/material.js'
 import  'react-mdl/extra/material.css'
 
 const Message = (props) => {
     return (
         <div>
-            <Card shadow={0} style={{ maxWidth: '512px', width: 'auto', margin: 'auto', marginTop: '20px' }}>
+            <Card shadow={0} style={{ maxWidth: '512px', width: 'auto', margin: 'auto', marginTop: '20px', marginBottom: '20px' }}>
                 <CardTitle style={{ color: '#fff', minHeight: '50px', height: 'auto', background: 'grey' }}>
                     Category: {props.messageModel.category}, Upvotes: {props.messageModel.upvotes}, Downvotes: {props.messageModel.downvotes}
                 </CardTitle>
@@ -16,8 +16,22 @@ const Message = (props) => {
                     {props.messageModel.content}
                 </CardText>
                 <CardActions border style={{ background: 'lightgrey' }}>
-                    <Button colored>React -> component reactie</Button>
-                    
+                    <div style={{ float: 'left' }}>
+                        <Textfield onChange={() => {}} label="Reaction content..." rows={3} style={{ width: 'parent' }}/>
+                        <p><Button raised ripple style={{ float: 'right' }}>Place reaction</Button></p>
+                    </div>
+                    <div style={{ float: 'right' }}>
+                        <p style={{ textAlign: 'right' }}>
+                            <FABButton>
+                                <Icon name="exposure_plus_1"/>
+                            </FABButton>
+                        </p>
+                        <p style={{ textAlign: 'right' }}>
+                            <FABButton>
+                                <Icon name="exposure_neg_1"/>
+                            </FABButton>
+                        </p>
+                    </div>
                 </CardActions>
             </Card>
         </div>
