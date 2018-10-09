@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import '../Styles/MessageCard.css'
+import '../styles/MessageCard.css'
 import { Button, Card, CardText, CardTitle, CardActions, CardMenu, IconButton } from 'react-mdl';
 import  'react-mdl/extra/material.js'
 import  'react-mdl/extra/material.css'
