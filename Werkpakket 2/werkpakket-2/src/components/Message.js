@@ -9,7 +9,7 @@ const Message = (props) => {
     return (
         <div>
             <Card shadow={0} style={{ maxWidth: '512px', width: 'auto', margin: 'auto', marginTop: '20px' }}>
-                <CardTitle style={{ color: '#fff', minHeight: '50px', background: 'grey' }}>
+                <CardTitle style={{ color: '#fff', minHeight: '50px', height: 'auto', background: 'grey' }}>
                     Category: {props.messageModel.category}, Upvotes: {props.messageModel.upvotes}, Downvotes: {props.messageModel.downvotes}
                 </CardTitle>
                 <CardText style={{ textAlign: 'left', minHeight: '100px' }}>
