@@ -24,7 +24,7 @@ class Message extends Component {
     render() {
         return (
             <div>
-                <Card shadow={0} style={{ maxWidth: '512px', margin: 'auto' }}>
+                <Card shadow={0} style={{ maxWidth: '512px', width: 'auto', margin: 'auto' }}>
                     <CardTitle style={{ color: '#fff', minHeight: '50px', background: 'grey' }}>NAAM</CardTitle>
                     <CardText style={{ textAlign: 'left', minHeight: '100px' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas 
