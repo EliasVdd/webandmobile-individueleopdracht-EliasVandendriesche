@@ -8,14 +8,14 @@ import  'react-mdl/extra/material.css'
 const Message = (props) => {
     return (
         <div>
-            <Card shadow={0} style={{ width: '512px', margin: 'auto' }}>
-                <CardTitle style={{ color: '#fff', height: '50px', background: 'grey' }}>
-                Category: {props.messageModel.category}, Upvotes: {props.messageModel.upvotes}, Downvotes: {props.messageModel.downvotes}
+            <Card shadow={0} style={{ maxWidth: '512px', width: 'auto', margin: 'auto', marginTop: '20px' }}>
+                <CardTitle style={{ color: '#fff', minHeight: '50px', background: 'grey' }}>
+                    Category: {props.messageModel.category}, Upvotes: {props.messageModel.upvotes}, Downvotes: {props.messageModel.downvotes}
                 </CardTitle>
-                <CardText>
-                {props.messageModel.content}
+                <CardText style={{ textAlign: 'left', minHeight: '100px' }}>
+                    {props.messageModel.content}
                 </CardText>
-                <CardActions border>
+                <CardActions border style={{ background: 'lightgrey' }}>
                     <Button colored>React -> component reactie</Button>
                     
                 </CardActions>
