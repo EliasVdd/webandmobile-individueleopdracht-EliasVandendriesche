@@ -16,11 +16,11 @@ const Message = (props) => {
                     {props.messageModel.content}
                 </CardText>
                 <CardActions border style={{ background: 'lightgrey' }}>
-                    <div style={{ float: 'left' }}>
+                    <div style={{ float: 'left', width: '65%' }}>
                         <Textfield onChange={() => {}} label="Reaction content..." rows={3} style={{ width: 'parent' }}/>
                         <p><Button raised ripple style={{ float: 'right' }}>Place reaction</Button></p>
                     </div>
-                    <div style={{ float: 'right' }}>
+                    <div style={{ float: 'right', width: '35%' }}>
                         <p style={{ textAlign: 'right' }}>
                             <FABButton>
                                 <Icon name="exposure_plus_1"/>
