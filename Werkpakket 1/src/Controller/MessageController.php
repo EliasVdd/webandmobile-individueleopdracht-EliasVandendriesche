@@ -1,6 +1,6 @@
-<?php
+<?php namespace App\Controller;
 
-namespace App\Controller;
+header("Access-Control-Allow-Origin: *");
 
 use App\Model\Connection;
 use App\Model\MessageModel;
