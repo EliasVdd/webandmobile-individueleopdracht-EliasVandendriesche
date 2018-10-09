@@ -6,7 +6,7 @@ import Message from './components/Message'
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className={"App"}>
         <Message></Message>
       </div>
     );
