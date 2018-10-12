@@ -9,7 +9,8 @@ class MessageList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            messages: []
+            messages: [],
+            upvotes: []
         }
     }
 
@@ -21,6 +22,36 @@ class MessageList extends Component {
         .then(messages=>{
             this.setState({messages});
         });
+    }
+
+    onClickUpvote = (id) => {
+        fetch('http://localhost:8000/message/upvote/' + id, {
+            method: 'POST'
+        });
+        fetch('http://localhost:8000/message/' + id)
+        .then(response => {
+            return response.json();
+        })
+        .then(message => {
+            const updatedMessages = Array.from(this.state.messages);
+            updatedMessages[id - 1] = message;
+            this.setState({messages: updatedMessages});
+        })
+    }
+
+    onClickDownvote = (id) => {
+        fetch('http://localhost:8000/message/downvote/' + id, {
+            method: 'POST'
+        });
+        fetch('http://localhost:8000/message/' + id)
+        .then(response => {
+            return response.json();
+        })
+        .then(message => {
+            const updatedMessages = Array.from(this.state.messages);
+            updatedMessages[id - 1] = message;
+            this.setState({messages: updatedMessages});
+        })
     }
 
     renderMessages() {
@@ -41,13 +72,13 @@ class MessageList extends Component {
                             </div>
                             <div style={{ float: 'right', width: '40%' }}>
                                 <p style={{ textAlign: 'right' }}>
-                                    <FABButton raised ripple onClickUpvote={this.onClickUpvote}>
-                                        <Icon name="exposure_plus_1" />
+                                    <FABButton raised ripple onClick={() => this.onClickUpvote(message.id)}>
+                                        <Icon name="thumb_up_alt" />
                                     </FABButton>
                                 </p>
                                 <p style={{ textAlign: 'right' }}>
-                                    <FABButton raised ripple>
-                                        <Icon name="exposure_neg_1" />
+                                    <FABButton raised ripple onClick={() => this.onClickDownvote(message.id)}>
+                                        <Icon name="thumb_down_alt" />
                                     </FABButton>
                                 </p>
                             </div>
