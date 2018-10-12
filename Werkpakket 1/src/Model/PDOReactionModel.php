@@ -16,6 +16,8 @@ class PDOReactionModel implements ReactionModel
         $pdo = $this->connection->getPDO();
         
         $token = uniqid('saltvoorextrapunten'.$id, true);
+
+        $content = htmlentities($content);
         
         $queryString = 'INSERT INTO Reactions (messageId, content, reactionToken) VALUES (:id, :content,:token)';
         $statement = $pdo->prepare($queryString);
