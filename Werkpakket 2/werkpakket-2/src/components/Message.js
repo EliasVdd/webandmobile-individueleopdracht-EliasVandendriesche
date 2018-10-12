@@ -22,12 +22,12 @@ const Message = (props) => {
                     </div>
                     <div style={{ float: 'right', width: '40%' }}>
                         <p style={{ textAlign: 'right' }}>
-                            <FABButton>
+                            <FABButton raised ripple>
                                 <Icon name="exposure_plus_1"/>
                             </FABButton>
                         </p>
                         <p style={{ textAlign: 'right' }}>
-                            <FABButton>
+                            <FABButton raised ripple>
                                 <Icon name="exposure_neg_1"/>
                             </FABButton>
                         </p>
