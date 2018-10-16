@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import { Button, Card, CardText, CardTitle, CardActions, FABButton, Textfield, Icon } from 'react-mdl';
+import React from 'react';
+import { Card, CardText, CardTitle, CardActions, FABButton, Icon,List, ListItem, ListItemContent } from 'react-mdl';
 import PropTypes from "prop-types";
 import  'react-mdl/extra/material.js'
 import  'react-mdl/extra/material.css'
+import AddReaction from './AddReaction.js'
+import ReactionText from './ReactionText'
 
 const Message = (props) => {
     return (
@@ -15,10 +17,33 @@ const Message = (props) => {
                 {props.messageModel.content}
             </CardText>
             <CardActions border style={{ background: 'lightgrey' }}>
-                <div style={{ float: 'left', width: '60%' }}>
-                    <Textfield onChange={() => { }} label="Reaction content..." rows={3} style={{ width: 'parent' }} />
-                    <p><Button raised ripple style={{ float: 'right' }}>Place reaction</Button></p>
-                </div>
+            <ReactionText>
+                    {props.reactionModels.length ?
+                        <div>
+                            {props.reactionModels.map(reactionModel => 
+                                <List style={{width: '650px'}}>
+                                <ListItem threeLine>
+                                  <ListItemContent avatar="person" subtitle={reactionModel.reactionContent}>{reactionModel.messageId}</ListItemContent>   
+                                  </ListItem>
+                                  </List>
+                                )}
+                        </div> :
+                        <CardText>
+                            
+                            NO REACTION
+                           
+                        </CardText>
+                        
+                    }
+                    </ReactionText>
+                    <ReactionText >
+                    <AddReaction   onReactionTextfieldChanged={props.onReactionTextfieldChanged}
+                            reactionModelToAdd={props.reactionModelToAdd}
+                            reactToComment={props.reactToComment}>                         
+                       </AddReaction>
+
+                        </ReactionText>
+                    
                 <div style={{ float: 'right', width: '40%' }}>
                     <p style={{ textAlign: 'right' }}>
                         <FABButton raised ripple onClick={() => props.onClickUpvote(props.messageModel.id)}>
@@ -44,7 +69,10 @@ Message.PropTypes = {
     upvotes: PropTypes.number,
     downvotes: PropTypes.number,
     onClickDownvote: PropTypes.func.isRequired,
-    onClickUpvote: PropTypes.func.isRequired
+    onClickUpvote: PropTypes.func.isRequired,
+    messageId: PropTypes.number.isRequired,
+    reactionContent: PropTypes.string.isRequired,
+    reactToComment: PropTypes.func.isRequired
 }
 
 export default Message;

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Button, Card, CardText, CardTitle, CardActions, Textfield, FABButton, Icon } from 'react-mdl';
-import PropTypes from "prop-types";
 import './Message';
 import Message from './Message';
 
@@ -10,7 +8,11 @@ class MessageList extends Component {
         super(props);
         this.state = {
             messages: [],
-            upvotes: []
+            reactionModels: [],
+            reactionModelToAdd: {
+                messageId:0,
+                reactionContent:''                   
+            }
         }
     }
 
@@ -54,10 +56,36 @@ class MessageList extends Component {
         })
     }
 
+    onReactionTextfieldChanged = (event) => {
+        const newReaction = event.target.value;
+        const modelToUpdate = this.state.reactionModelToAdd;
+
+        if (newReaction) {
+            modelToUpdate.reactionContent = newReaction;
+        } else {
+            modelToUpdate.reactionContent = '';
+        }
+
+        this.setState({ reactionModelToAdd: modelToUpdate });
+    }
+
+    reactToComment = () => {
+        if (this.state.reactionModelToAdd.reactionContent.trim()) {
+            this.setState({
+                reactionModels: [...this.state.reactionModels, this.state.reactionModelToAdd]
+            });
+        }
+        this.setState({
+            reactionModelToAdd: {
+                messageId: 0,
+                reactionContent: ''
+            }
+        });
+    }
     renderMessages() {
         return this.state.messages.map(message => 
             (
-                <Message messageModel={message} onClickDownvote={this.onClickDownvote} onClickUpvote={this.onClickUpvote}></Message>
+                <Message reactionModels={this.state.reactionModels} reactToComment={this.reactToComment} reactionModelToAdd={this.reactionModelToAdd} messageModel={message} onClickDownvote={this.onClickDownvote} onClickUpvote={this.onClickUpvote}></Message>
             ),
         )
     }
