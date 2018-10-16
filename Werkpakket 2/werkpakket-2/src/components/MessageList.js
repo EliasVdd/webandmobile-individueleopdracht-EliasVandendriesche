@@ -64,6 +64,7 @@ class MessageList extends Component {
             this.setState({
                 reactionModels: [...this.state.reactionModels, this.state.reactionModelToAdd]
             });
+            axios.post('http://localhost:8000/reaction/' + this.state.reactionModelToAdd.messageId + '/' + this.state.reactionModelToAdd.reactionContent)
         }
         this.setState({
             reactionModelToAdd: {
