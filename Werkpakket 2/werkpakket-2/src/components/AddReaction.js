@@ -13,10 +13,11 @@ const AddReaction = (props) => {
         <div>
             <Textfield
                 id={reactionModelToAdd.messageId}
-                label=''
+                label='Place a reaction...'
                 style={{ width: '200px' }}
                 defaultValue={reactionModelToAdd.reactionContent}
-                onChange={onReactionTextfieldChanged}               
+                onChange={onReactionTextfieldChanged} 
+                rows='3'              
             />
         <div>
                 <Button onClick={reactToComment}>
