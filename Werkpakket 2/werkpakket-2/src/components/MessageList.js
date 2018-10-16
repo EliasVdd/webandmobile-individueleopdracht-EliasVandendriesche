@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Message';
 import Message from './Message';
+import axios from 'axios';
 
 
 class MessageList extends Component {
@@ -17,51 +18,40 @@ class MessageList extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8000/messages')
+        axios.get('http://localhost:8000/messages')
         .then(response => {
-            return response.json();
-        })
-        .then(messages=>{
-            this.setState({messages});
+            const messages = response.data;
+            this.setState({ messages });
         });
     }
 
     onClickUpvote = (id) => {
-        fetch('http://localhost:8000/message/upvote/' + id, {
-            method: 'POST'
-        });
-        fetch('http://localhost:8000/message/' + id)
+        axios.post('http://localhost:8000/message/upvote/' + id);
+        axios.get('http://localhost:8000/message/' + id)
         .then(response => {
-            return response.json();
-        })
-        .then(message => {
             const updatedMessages = Array.from(this.state.messages);
-            updatedMessages[id - 1] = message;
+            updatedMessages[id - 1] = response.data;
             this.setState({messages: updatedMessages});
-        })
+        });
     }
 
     onClickDownvote = (id) => {
-        fetch('http://localhost:8000/message/downvote/' + id, {
-            method: 'POST'
-        });
-        fetch('http://localhost:8000/message/' + id)
+        axios.post('http://localhost:8000/message/downvote/' + id);
+        axios.get('http://localhost:8000/message/' + id)
         .then(response => {
-            return response.json();
-        })
-        .then(message => {
             const updatedMessages = Array.from(this.state.messages);
-            updatedMessages[id - 1] = message;
+            updatedMessages[id - 1] = response.data;
             this.setState({messages: updatedMessages});
-        })
+        });
     }
 
-    onReactionTextfieldChanged = (event) => {
+    onReactionTextfieldChanged = (event, messageId) => {
         const newReaction = event.target.value;
         const modelToUpdate = this.state.reactionModelToAdd;
 
         if (newReaction) {
             modelToUpdate.reactionContent = newReaction;
+            modelToUpdate.messageId = messageId;
         } else {
             modelToUpdate.reactionContent = '';
         }
@@ -85,7 +75,7 @@ class MessageList extends Component {
     renderMessages() {
         return this.state.messages.map(message => 
             (
-                <Message reactionModels={this.state.reactionModels} reactToComment={this.reactToComment} reactionModelToAdd={this.reactionModelToAdd} messageModel={message} onClickDownvote={this.onClickDownvote} onClickUpvote={this.onClickUpvote}></Message>
+                <Message key={message.id} data-key={message.id} reactionModels={this.state.reactionModels} reactToComment={this.reactToComment} reactionModelToAdd={this.reactionModelToAdd} onReactionTextfieldChanged={this.onReactionTextfieldChanged} messageModel={message} onClickDownvote={this.onClickDownvote} onClickUpvote={this.onClickUpvote}></Message>
             ),
         )
     }

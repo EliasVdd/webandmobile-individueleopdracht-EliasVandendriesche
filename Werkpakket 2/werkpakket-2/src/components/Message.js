@@ -19,8 +19,9 @@ const Message = (props) => {
             <CardActions border style={{ background: 'lightgrey' }}>
             <ReactionText>
                     {props.reactionModels.length ?
+                        
                         <div>
-                            {props.reactionModels.map(reactionModel => 
+                            {props.reactionModels.filter(r => r.messageId === props.messageModel.id).map(reactionModel => 
                                 <List style={{width: '650px'}}>
                                 <ListItem threeLine>
                                   <ListItemContent avatar="person" subtitle={reactionModel.reactionContent}>{reactionModel.messageId}</ListItemContent>   
@@ -36,14 +37,11 @@ const Message = (props) => {
                         
                     }
                     </ReactionText>
-                    <ReactionText >
-                    <AddReaction   onReactionTextfieldChanged={props.onReactionTextfieldChanged}
+                            <AddReaction 
+                            onReactionTextfieldChanged={(e) => props.onReactionTextfieldChanged(e, props.messageModel.id)}
                             reactionModelToAdd={props.reactionModelToAdd}
-                            reactToComment={props.reactToComment}>                         
-                       </AddReaction>
-
-                        </ReactionText>
-                    
+                            reactToComment={props.reactToComment}>
+                            </AddReaction>
                 <div style={{ float: 'right', width: '40%' }}>
                     <p style={{ textAlign: 'right' }}>
                         <FABButton raised ripple onClick={() => props.onClickUpvote(props.messageModel.id)}>
@@ -72,7 +70,9 @@ Message.PropTypes = {
     onClickUpvote: PropTypes.func.isRequired,
     messageId: PropTypes.number.isRequired,
     reactionContent: PropTypes.string.isRequired,
-    reactToComment: PropTypes.func.isRequired
+    reactToComment: PropTypes.func.isRequired,
+    onReactionTextfieldChanged: PropTypes.func.isRequired,
+    reactionModelToAdd: PropTypes.array.isRequired
 }
 
 export default Message;
