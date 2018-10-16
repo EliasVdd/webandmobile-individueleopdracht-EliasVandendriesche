@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a16fa3637548befcab21faccd4895b3",
+    "content-hash": "c3d65ebf7d2243fac343a9e4f293a58e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2854,16 +2854,16 @@
         },
         {
             "name": "symfony/framework-bundle",
-            "version": "v4.1.5",
+            "version": "v4.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/framework-bundle.git",
-                "reference": "462c6acc8c7eeff5066b94d9943422fccdf11fd8"
+                "reference": "3a0f2ec035c6ecc0f751fda1a76b02310bc9bbfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/462c6acc8c7eeff5066b94d9943422fccdf11fd8",
-                "reference": "462c6acc8c7eeff5066b94d9943422fccdf11fd8",
+                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/3a0f2ec035c6ecc0f751fda1a76b02310bc9bbfe",
+                "reference": "3a0f2ec035c6ecc0f751fda1a76b02310bc9bbfe",
                 "shasum": ""
             },
             "require": {
@@ -2967,7 +2967,7 @@
             ],
             "description": "Symfony FrameworkBundle",
             "homepage": "https://symfony.com",
-            "time": "2018-09-30T03:38:13+00:00"
+            "time": "2018-10-03T08:47:56+00:00"
         },
         {
             "name": "symfony/http-foundation",

@@ -57,34 +57,7 @@ class MessageList extends Component {
     renderMessages() {
         return this.state.messages.map(message => 
             (
-                <div>
-                    <Card shadow={0} style={{ maxWidth: '512px', width: 'auto', margin: 'auto', marginTop: '20px', marginBottom: '20px' }}>
-                        <CardTitle style={{ color: '#fff', minHeight: '50px', height: 'auto', background: 'grey' }}>
-                            Category: {message.category}, Upvotes: {message.upvotes}, Downvotes: {message.downvotes}
-                        </CardTitle>
-                        <CardText style={{ textAlign: 'left', minHeight: '100px' }}>
-                            {message.content}
-                        </CardText>
-                        <CardActions border style={{ background: 'lightgrey' }}>
-                            <div style={{ float: 'left', width: '60%' }}>
-                                <Textfield onChange={() => { }} label="Reaction content..." rows={3} style={{ width: 'parent' }} />
-                                <p><Button raised ripple style={{ float: 'right' }}>Place reaction</Button></p>
-                            </div>
-                            <div style={{ float: 'right', width: '40%' }}>
-                                <p style={{ textAlign: 'right' }}>
-                                    <FABButton raised ripple onClick={() => this.onClickUpvote(message.id)}>
-                                        <Icon name="thumb_up_alt" />
-                                    </FABButton>
-                                </p>
-                                <p style={{ textAlign: 'right' }}>
-                                    <FABButton raised ripple onClick={() => this.onClickDownvote(message.id)}>
-                                        <Icon name="thumb_down_alt" />
-                                    </FABButton>
-                                </p>
-                            </div>
-                        </CardActions>
-                    </Card>
-                </div>
+                <Message messageModel={message} onClickDownvote={this.onClickDownvote} onClickUpvote={this.onClickUpvote}></Message>
             ),
         )
     }
