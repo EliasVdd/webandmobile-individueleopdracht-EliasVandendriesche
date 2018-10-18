@@ -17,7 +17,8 @@ const AddReaction = (props) => {
                 style={{ width: '200px' }}
                 defaultValue={reactionModelToAdd.content}
                 onChange={onReactionTextfieldChanged} 
-                rows='3'              
+                rows={3}
+                maxLength='255'          
             />
         <div>
                 <Button onClick={reactToComment}>

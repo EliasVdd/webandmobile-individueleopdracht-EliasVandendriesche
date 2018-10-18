@@ -122,7 +122,7 @@ class MessageController extends AbstractController
             $statuscode = 500;
         }
         
-        return new JsonResponse("Succesfully added an upvote.", $statuscode);
+        return new JsonResponse($message, $statuscode);
     }
     
     /**
@@ -144,6 +144,6 @@ class MessageController extends AbstractController
             $statuscode = 500;
         }
         
-        return new JsonResponse("Succesfully added a downvote.", $statuscode);
+        return new JsonResponse($message, $statuscode);
     }
 }
