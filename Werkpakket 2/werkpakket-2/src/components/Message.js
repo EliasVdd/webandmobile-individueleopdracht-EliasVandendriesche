@@ -20,7 +20,7 @@ const Message = (props) => {
                     <ReactionText>
                         {props.reactions.length ?
                             <div>
-                                {props.reactionModels.filter(r => parseInt(r.messageId) === parseInt(props.messageModel.id)).map(reactionModel =>
+                                {props.reactions.filter(r => parseInt(r.messageId) === parseInt(props.messageModel.id)).map(reactionModel =>
                                     <List style={{ width: '650px' }}>
                                         <ListItem threeLine>
                                             <ListItemContent avatar="person" subtitle={reactionModel.content}>{reactionModel.messageId}</ListItemContent>

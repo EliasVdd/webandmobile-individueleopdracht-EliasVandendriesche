@@ -35,6 +35,6 @@ class PDOReactionModel implements ReactionModel
         
         $statement->execute();
 
-        return $token;
+        return $this->getAllReactions();
     }
 }
