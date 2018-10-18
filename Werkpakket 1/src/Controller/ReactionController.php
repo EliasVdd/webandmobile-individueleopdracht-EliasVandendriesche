@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+header("Access-Control-Allow-Origin: *");
+
 use App\Model\Connection;
 use App\Model\ReactionModel;
 use App\Model\PDOReactionModel;
