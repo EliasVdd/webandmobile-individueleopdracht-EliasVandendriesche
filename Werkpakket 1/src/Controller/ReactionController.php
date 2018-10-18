@@ -35,6 +35,7 @@ class ReactionController extends AbstractController
         }
         return new JsonResponse($reactions, $statusCode);
     }
+    
     /**
     * @Route("/reaction/{id}/{content}", methods={"POST"}, name="postReactionByMessageId")
     */

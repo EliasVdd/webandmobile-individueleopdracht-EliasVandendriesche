@@ -10,7 +10,15 @@ class PDOReactionModel implements ReactionModel
     {
         $this->connection = $connection;
     }
-    
+    public function getAllReactions()
+    {
+        $pdo = $this->connection->getPDO();
+
+        $statement = $pdo->prepare('SELECT * FROM Reactions');
+        $statement->execute();
+        
+        return $statement->fetchAll();
+    }
     public function postReactionByMessageId($id, $content)
     {
         $pdo = $this->connection->getPDO();
