@@ -15,7 +15,7 @@ const AddReaction = (props) => {
                 id={reactionModelToAdd.messageId}
                 label='Place a reaction...'
                 style={{ width: '200px' }}
-                defaultValue={reactionModelToAdd.reactionContent}
+                defaultValue={reactionModelToAdd.content}
                 onChange={onReactionTextfieldChanged} 
                 rows='3'              
             />
@@ -30,7 +30,7 @@ const AddReaction = (props) => {
 }
 
 AddReaction.defaultProps = {
-    reactionModelToAdd: { messageId: 0, reactionContent:'' }
+    reactionModelToAdd: { messageId: 0, content:'' }
 }
 
 AddReaction.PropTypes = {
