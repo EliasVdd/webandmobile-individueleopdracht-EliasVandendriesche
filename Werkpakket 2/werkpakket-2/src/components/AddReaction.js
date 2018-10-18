@@ -18,7 +18,7 @@ const AddReaction = (props) => {
                 defaultValue={reactionModelToAdd.reactionContent}
                 onChange={onReactionTextfieldChanged} 
                 rows={3}
-                maxLength='255'           
+                maxLength='255'          
             />
         <div>
                 <Button onClick={reactToComment}>

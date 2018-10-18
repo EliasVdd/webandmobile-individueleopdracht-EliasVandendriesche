@@ -95,8 +95,9 @@ class PDOMessageModel implements MessageModel
         $statement = $pdo->prepare('UPDATE Messages SET upvotes=:upvotes WHERE id=:id');
         $statement->bindParam(':upvotes', $upvotes, \PDO::PARAM_INT);
         $statement->bindParam(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
 
-        return $statement->execute();
+        return $this->getMessage($id);
     }
 
     public function addDownvote($id)
@@ -112,7 +113,8 @@ class PDOMessageModel implements MessageModel
         $statement = $pdo->prepare('UPDATE Messages SET downvotes=:downvotes WHERE id=:id');
         $statement->bindParam(':downvotes', $downvotes, \PDO::PARAM_INT);
         $statement->bindParam(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
 
-        return $statement->execute();
+        return $this->getMessage($id);
     }
 }

@@ -105,7 +105,7 @@ class PDOMessageModelTest extends TestCase
         $actualVoteCount = $messageModel->getMessage(1)['upvotes'];
 
         //Assert
-        $this->assertTrue($isSuccessful);
+        $this->assertNotNull($isSuccessful);
         $this->assertEquals($expectedUpVotes, $actualVoteCount);
     }
 
@@ -129,7 +129,7 @@ class PDOMessageModelTest extends TestCase
         $actualVoteCount = $messageModel->getMessage(1)['downvotes'];
 
         //Assert
-        $this->assertTrue($isSuccessful);
+        $this->assertNotNull($isSuccessful);
         $this->assertEquals($expectedDownVotes, $actualVoteCount);
     }
 
