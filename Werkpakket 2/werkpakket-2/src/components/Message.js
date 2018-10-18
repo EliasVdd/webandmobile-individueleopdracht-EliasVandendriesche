@@ -18,13 +18,12 @@ const Message = (props) => {
                 </CardText>
                 <CardActions border style={{ background: 'lightgrey' }}>
                     <ReactionText>
-                        {props.reactionModels.length ?
-
+                        {props.reactions.length ?
                             <div>
                                 {props.reactionModels.filter(r => parseInt(r.messageId) === parseInt(props.messageModel.id)).map(reactionModel =>
                                     <List style={{ width: '650px' }}>
                                         <ListItem threeLine>
-                                            <ListItemContent avatar="person" subtitle={reactionModel.reactionContent}>{reactionModel.messageId}</ListItemContent>
+                                            <ListItemContent avatar="person" subtitle={reactionModel.content}>{reactionModel.messageId}</ListItemContent>
                                         </ListItem>
                                     </List>
                                 )}

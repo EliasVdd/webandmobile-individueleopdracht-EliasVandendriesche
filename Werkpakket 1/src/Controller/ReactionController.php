@@ -18,6 +18,23 @@ class ReactionController extends AbstractController
     {
         $this->reactionModel = $reactionModel;
     }
+      /**
+    * @Route("/reactions", methods={"GET"}, name="reaction")
+    */
+    public function getAllReactions()
+    {
+        $statusCode = 200;
+        $reactions = null;
+        try {
+            $reactions = $this->reactionModel->getAllReactions();
+            if ($reactions == null) {
+                $statusCode = 404;
+            }
+        } catch (\Exception $exception) {
+            $statusCode = 500;
+        }
+        return new JsonResponse($reactions, $statusCode);
+    }
     
     /**
     * @Route("/reaction/{id}/{content}", methods={"POST"}, name="postReactionByMessageId")
