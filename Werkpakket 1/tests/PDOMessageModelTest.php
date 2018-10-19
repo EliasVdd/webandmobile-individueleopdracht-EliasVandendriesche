@@ -142,6 +142,15 @@ class PDOMessageModelTest extends TestCase
         $messageModel->addDownvote(-1);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testFindMessage_invalidParameter_Exception()
+    {
+        $messageModel = new PDOMessageModel($this->connection);
+        $messageModel->findMessage(null, null);
+    }
+
     public function testFindMessageByContent()
     {
         //Arrange
@@ -149,7 +158,7 @@ class PDOMessageModelTest extends TestCase
         $expectedMessage = $messageModel->getMessage(1);
 
         //Act
-        $actualMessage = $messageModel->findMessageByContent('Giganteum');
+        $actualMessage = $messageModel->findMessage('Giganteum', '');
 
         //Assert
         $this->assertNotNull($actualMessage);
@@ -163,8 +172,31 @@ class PDOMessageModelTest extends TestCase
     public function testFindMessageByContent_invalidParameter_Exception()
     {
         $messageModel = new PDOMessageModel($this->connection);
-        $messageModel->findMessageByContent("");
-        $messageModel->findMessageByContent(" ");
+        $messageModel->findMessage(' ', '');
+    }
+
+    public function testFindMessageByCategory()
+    {
+        ///Arrange
+        $messageModel = new PDOMessageModel($this->connection);
+        $expectedMessage = $messageModel->getMessage(1);
+
+        //Act
+        $actualMessage = $messageModel->findMessage('', 'Hardware');
+
+        //Assert
+        $this->assertNotNull($actualMessage);
+        $this->assertEquals($expectedMessage['id'], $actualMessage[0]['id']);
+        $this->assertEquals($expectedMessage['category'], $actualMessage[0]['category']);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testFindMessageByCategory_invalidParameter_Exception()
+    {
+        $messageModel = new PDOMessageModel($this->connection);
+        $messageModel->findMessage('', ' ');
     }
 
     public function testFindMessageByContentAndCategory()
@@ -174,7 +206,7 @@ class PDOMessageModelTest extends TestCase
         $expectedMessage = $messageModel->getMessage(1);
 
         //Act
-        $actualMessage = $messageModel->findMessageByContentAndCategory('Giganteum', 'Hardware');
+        $actualMessage = $messageModel->findMessage('Giganteum', 'Hardware');
 
         //Assert
         $this->assertNotNull($actualMessage);
@@ -185,11 +217,9 @@ class PDOMessageModelTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testFindMessageByContentAndCategory_invalidParameters_Exception()
+    public function testFindMessageByContentAndCategory_invalidParameter_Exception()
     {
         $messageModel = new PDOMessageModel($this->connection);
-        $messageModel->findMessageByContentAndCategory("", "");
-        $messageModel->findMessageByContentAndCategory(" ", "");
-        $messageModel->findMessageByContentAndCategory("", " ");
+        $messageModel->findMessage(' ', ' ');
     }
 }

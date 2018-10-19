@@ -7,31 +7,31 @@ import axios from 'axios';
 
 class Dashboard extends Component {
     state = {
-        
+
     }
 
     render() {
         return (
-    <div className="App">
-        <NavigationBar
-        onSearchContentSubmit={this.onSearchContentSubmit}
-        />
+            <div className="App">
+                <NavigationBar
+                    onSearchContentSubmit={this.onSearchContentSubmit}
+                />
 
-        <Switch>
-          <Route exact path='/' component={Welcome} />
-          <Route path='/messageList' component={MessageList} />
-        </Switch>
-    </div>
+                <Switch>
+                    <Route exact path='/' component={Welcome} />
+                    <Route path='/messageList' component={MessageList} />
+                </Switch>
+            </div>
         );
     }
 
-    getMessagesWithContent(){
+    getMessagesWithContent() {
         var content = 'dolor';
         axios.get('http://localhost:8000/messages/find/' + content)
-        .then(response => {
-            const messages = response.data;
-            this.setState({ messages })
-        })
+            .then(response => {
+                const messages = response.data;
+                this.setState({ messages })
+            })
 
     }
 }
