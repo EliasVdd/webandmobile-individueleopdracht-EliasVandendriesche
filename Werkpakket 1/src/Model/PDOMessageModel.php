@@ -9,41 +9,62 @@ class PDOMessageModel implements MessageModel
         $this->connection = $connection;
     }
 
-    public function findMessageByContentAndCategory($content, $category)
+    public function findMessage($content, $category)
     {
-        if (trim($content) == '' || trim($category) == '') {
+        // NO parameters provided
+        if ($content == null && $category == null) {
             throw new \InvalidArgumentException();
         }
 
-        $pdo = $this->connection->getPDO();
+        // Content parameter provided
+        if ($content !== null && $category == null) {
+            if (trim($content) == '') {
+                throw new \InvalidArgumentException();
+            }
 
-        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE ? and category LIKE ?');
+            $pdo = $this->connection->getPDO();
 
-        $content = '%' . $content . '%';
-        $category = '%' . $category . '%';
+            $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE ?');
 
-        $statement->bindParam(1, $content);
-        $statement->bindParam(2, $category);
-        $statement->execute();
+            $statement->execute([$this->generateContentQuery($content)]);
 
-        return $statement->fetchAll();
-    }
-
-    public function findMessageByContent($content)
-    {
-        if (trim($content) == '') {
-            throw new \InvalidArgumentException();
+            return $statement->fetchAll();
         }
 
-        $pdo = $this->connection->getPDO();
+        // Category parameter provided
+        if ($content == null && $category !== null) {
+            if (trim($category) == '') {
+                throw new \InvalidArgumentException();
+            }
 
-        $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE ?');
+            $pdo = $this->connection->getPDO();
 
-        $content = '%' . $content . '%';
+            $statement = $pdo->prepare('SELECT * FROM Messages WHERE category LIKE ?');
 
-        $statement->execute([$content]);
+            $statement->execute([$this->generateContentQuery($category)]);
 
-        return $statement->fetchAll();
+            return $statement->fetchAll();
+        }
+
+        // Content AND parameter provider
+        if ($content !== null && $category !== null) {
+            if (trim($content) == '' || trim($category) == '') {
+                throw new \InvalidArgumentException();
+            }
+
+            $pdo = $this->connection->getPDO();
+
+            $statement = $pdo->prepare('SELECT * FROM Messages WHERE content LIKE ? and category LIKE ?');
+
+            $contentParameter = $this->generateContentQuery($content);
+            $categoryParameter = $this->generateCategoryQuery($category);
+
+            $statement->bindParam(1, $contentParameter);
+            $statement->bindParam(2, $categoryParameter);
+            $statement->execute();
+
+            return $statement->fetchAll();
+        }
     }
 
     public function getAllMessages()
@@ -116,5 +137,43 @@ class PDOMessageModel implements MessageModel
         $statement->execute();
 
         return $this->getMessage($id);
+    }
+
+    private function generateContentQuery($content)
+    {
+        if (strpos($content, ' ') == false) {
+            return '%' . $content . '%';
+        }
+
+        $contentArray = explode(' ', $content);
+
+        $contentParameter = '';
+
+        for ($i = 0; $i < count($contentArray); $i++) {
+            $contentParameter .= '%' . $contentArray[$i];
+        }
+
+        $contentParameter .= '%';
+
+        return $contentParameter;
+    }
+
+    private function generateCategoryQuery($category)
+    {
+        if (strpos($category, ' ') == false) {
+            return '%' . $category . '%';
+        }
+
+        $categoryArray = explode(' ', $category);
+
+        $categoryParameter = '';
+
+        for ($i = 0; $i < count($categoryArray); $i++) {
+            $categoryParameter .= '%' . $categoryArray[$i];
+        }
+
+        $categoryParameter .= '%';
+
+        return $categoryParameter;
     }
 }
