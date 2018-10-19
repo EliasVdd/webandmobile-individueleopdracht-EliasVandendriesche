@@ -7,7 +7,7 @@ import axios from 'axios';
 
 class Dashboard extends Component {
     state = {
-
+        
     }
 
     render() {
@@ -15,6 +15,7 @@ class Dashboard extends Component {
             <div className="App">
                 <NavigationBar
                     onSearchContentSubmit={this.onSearchContentSubmit}
+                    onSearchCategorySubmit={this.onSearchCategorySubmit}
                 />
 
                 <Switch>
@@ -25,14 +26,22 @@ class Dashboard extends Component {
         );
     }
 
-    getMessagesWithContent() {
+    onSearchContentSubmit() {
         var content = 'dolor';
-        axios.get('http://localhost:8000/messages/find/' + content)
+        axios.get('http://localhost:8000/message?content=' + content)
             .then(response => {
                 const messages = response.data;
-                this.setState({ messages })
-            })
+                console.log(messages);
+            });
+    }
 
+    onSearchCategorySubmit() {
+        var category = 'hardware';
+        axios.get('http://localhost:8000/message?category=' + category)
+        .then(response => {
+            const messages = response.data;
+            console.log(messages);
+        });
     }
 }
 
