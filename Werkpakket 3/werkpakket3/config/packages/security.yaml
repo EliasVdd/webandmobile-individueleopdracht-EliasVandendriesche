@@ -1,13 +1,21 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        db_provider:
+            entity:
+                class: App/Entity/User
+                property: userName
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\Authenticator
+        
 
             # activate different ways to authenticate
 
@@ -26,3 +34,4 @@ security:
     encoders:
         App\Entity\User:
             algorithm: bcrypt
+            cost: 12
