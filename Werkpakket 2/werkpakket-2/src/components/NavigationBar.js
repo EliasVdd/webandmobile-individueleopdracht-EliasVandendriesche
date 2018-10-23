@@ -94,7 +94,8 @@ function NavigationBar (props) {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
-              onChange={props.onSearchContentSubmit}
+              id="searchContent"
+              onChange={props.onSearchSubmit}
             />
           </div>
           <div className={classes.search}>
@@ -107,7 +108,8 @@ function NavigationBar (props) {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
-              onChange={props.onSearchCategorySubmit}
+              id="searchCategory"
+              onChange={props.onSearchSubmit}
             />
           </div>
         </Toolbar>
@@ -118,8 +120,7 @@ function NavigationBar (props) {
 
 NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  onSearchContentSubmit: PropTypes.func,
-  onSearchCategorySubmit: PropTypes.func
+  onSearchSubmit: PropTypes.func
 };
 
 function mapStateToProps(state) {

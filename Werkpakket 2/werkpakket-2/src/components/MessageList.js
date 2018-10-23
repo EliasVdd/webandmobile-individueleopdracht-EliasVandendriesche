@@ -17,7 +17,9 @@ class MessageList extends Component {
             reactionModelToAdd: {
                 messageId: 0,
                 content: ''
-            }
+            },
+            searchContentString: '',
+            searchCategoryString: ''
         }
     }
 
@@ -83,26 +85,86 @@ class MessageList extends Component {
         });
     }
 
-    onSearchContentSubmit = (event) => {
-        var content = event.target.value;
-        axios.get('http://localhost:8000/message?content=' + content)
-            .then(response => {
-                const filteredMessages = response.data;
-                this.setState({
-                    messages: filteredMessages
-                });
+    onSearchSubmit = (event) => {
+        // Check if event triggered by content search
+        if (event.target.id === "searchContent") {
+            var content = event.target.value;
+            this.setState({
+                searchContentString: content
             });
-    }
-
-    onSearchCategorySubmit = (event) => {
-        var category = event.target.value
-        axios.get('http://localhost:8000/message?category=' + category)
-            .then(response => {
-                const filteredMessages = response.data;
-                this.setState({
-                   messages: filteredMessages 
-                });
+            // Check if necessary to search by both content and category --> category InputBase also has text?
+            if (this.state.searchCategoryString !== '') {
+                axios.get('http://localhost:8000/message?content=' + content + '&category=' + this.state.searchCategoryString)
+                .then(
+                    (response) => {
+                        const filteredMessages = response.data;
+                        this.setState({
+                            messages: filteredMessages
+                        })
+                    },
+                    (error) => {
+                        this.setState({
+                            messages: []
+                        })
+                    }
+                );
+            // category InputBase has no text
+            } else {
+                axios.get('http://localhost:8000/message?content=' + content)
+                .then(
+                    (response) => {
+                        const filteredMessages = response.data;
+                        this.setState({
+                            messages: filteredMessages
+                        })
+                    },
+                    (error) => {
+                        this.setState({
+                            messages: []
+                        })
+                    }
+                );
+            }
+        // Check if event triggered by category search
+        } else if (event.target.id === "searchCategory") {
+            var category = event.target.value;
+            this.setState({
+                searchCategoryString: category
             });
+            // Check if necessary to search by both content and category --> content InputBase also has text?
+            if (this.state.searchContentString !== '') {
+                axios.get('http://localhost:8000/message?content=' + this.state.searchContentString + '&category=' + category)
+                .then(
+                    (response) => {
+                        const filteredMessages = response.data;
+                        this.setState({
+                            messages: filteredMessages
+                        })
+                    },
+                    (error) => {
+                        this.setState({
+                            messages: []
+                        })
+                    }
+                );
+            // content InputBase has no text
+            } else {
+                axios.get('http://localhost:8000/message?category=' + category)
+                .then(
+                    (response) => {
+                        const filteredMessages = response.data;
+                        this.setState({
+                            messages: filteredMessages
+                        })
+                    },
+                    (error) => {
+                        this.setState({
+                            messages: []
+                        })
+                    }
+                );
+            }
+        }
     }
 
     renderMessages() {
@@ -117,8 +179,7 @@ class MessageList extends Component {
         return (
             <div>
                 <NavigationBar 
-                    onSearchContentSubmit={this.onSearchContentSubmit}
-                    onSearchCategorySubmit={this.onSearchCategorySubmit}
+                    onSearchSubmit={this.onSearchSubmit}
                 />
                 {this.renderMessages()}
             </div>
