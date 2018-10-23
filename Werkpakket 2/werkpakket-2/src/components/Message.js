@@ -8,42 +8,37 @@ import ReactionText from './ReactionText'
 
 const Message = (props) => {
     return (
-        <div>
-            <Card shadow={0} style={{ maxWidth: '512px', width: 'auto', margin: 'auto', marginTop: '20px', marginBottom: '20px' }}>
-                <CardTitle style={{ color: '#fff', minHeight: '50px', height: 'auto', background: 'grey' }}>
+        <div style={{  width: "50%", margin: "auto" }}>
+            <Card shadow={0} style={{ background:"#FFFFFF", maxWidth: 'auto', width: 'auto', margin: 'auto', marginTop: '20px', marginBottom: '30px',boxShadow:'2px 2px 10px 10px lightgrey' }}>
+                <CardTitle style={{ color: '#fff', minHeight: '50px', height: 'auto', background: '#58A618' }}>
                     Category: {props.messageModel.category}, Upvotes: {props.messageModel.upvotes}, Downvotes: {props.messageModel.downvotes}
                 </CardTitle>
                 <CardText style={{ textAlign: 'left', minHeight: '100px' }}>
                     {props.messageModel.content}
                 </CardText>
-                <CardActions border style={{ background: 'lightgrey' }}>
+                <CardActions border style={{ background: '#FFFFFF' }}>
                     <ReactionText>
-                        {props.reactions.length ?
-                            <div>
-                                {props.reactions.filter(r => parseInt(r.messageId) === parseInt(props.messageModel.id)).map(reactionModel =>
-                                    <List style={{ width: '650px' }}>
-                                        <ListItem threeLine>
-                                            <ListItemContent avatar="person" subtitle={reactionModel.content}>{reactionModel.messageId}</ListItemContent>
-                                        </ListItem>
-                                    </List>
-                                )}
-                            </div> :
-                            <CardText>
-                                NO REACTION
-                            </CardText>
-
-                        }
+                        <div>
+                            {props.reactions.filter(r => parseInt(r.messageId) === parseInt(props.messageModel.id)).map(reactionModel =>
+                                <List>
+                                    <ListItem threeLine style={{ background: "#FFFFFF", boxShadow:'1px 1px 1px 1px lightgrey'}}>
+                                        <ListItemContent avatar="person" subtitle={reactionModel.content}>{reactionModel.messageId}</ListItemContent>
+                                    </ListItem>
+                                </List>
+                            )}
+                        </div>
+                        <AddReaction
+                            onReactionTextfieldChanged={(e) => props.onReactionTextfieldChanged(e, props.messageModel.id)}
+                            reactionModelToAdd={props.reactionModelToAdd}
+                            reactToComment={props.reactToComment}>
+                        </AddReaction>
                     </ReactionText>
-                    <AddReaction
-                        onReactionTextfieldChanged={(e) => props.onReactionTextfieldChanged(e, props.messageModel.id)}
-                        reactionModelToAdd={props.reactionModelToAdd}
-                        reactToComment={props.reactToComment}>
-                    </AddReaction>
+
                     <div style={{ width: '100%' }}>
-                        <FABButton style={{ float: 'left' }} raised ripple onClick={() => props.onClickUpvote(props.messageModel.id)}>
-                            <Icon name="thumb_up_alt" />
+                        <FABButton style={{ float: 'left' }} raised ripple onClick={() => props.onClickUpvote(props.messageModel.id)} >
+                            <Icon name="thumb_up_alt"/>
                         </FABButton>
-                        <FABButton style={{ float: 'right'   }} raised ripple onClick={() => props.onClickDownvote(props.messageModel.id)}>
+                        <FABButton style={{ float: 'right' }} raised ripple onClick={() => props.onClickDownvote(props.messageModel.id)}>
                             <Icon name="thumb_down_alt" />
                         </FABButton>
                     </div>

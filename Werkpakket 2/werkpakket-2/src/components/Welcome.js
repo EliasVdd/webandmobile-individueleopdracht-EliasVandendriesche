@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { storeUserName } from "../actions/userInfoActions";
 import MessageList from './MessageList.js';
+import NavigationBar from './NavigationBar.js';
 
 
 class Welcome extends Component {
@@ -32,31 +33,33 @@ class Welcome extends Component {
     render() {
         return (
             this.state.navigate ? <Redirect to="/messageList" /> :
-                <Fragment>
-                    <Typography variant="title">
-                        Welcome!
+                <div>
+                    <NavigationBar />
+                    <Fragment>
+                        <Typography variant="title">
+                            Welcome!
                     </Typography>
-                    <div className="col s3">
-                        <TextField
-                            id="userName"
-                            name="name"
-                            placeholder="Enter your name"
-                            value={this.state.name}
-                            onChange={(e) => this.setState({ name: e.target.value })}
-                        />
-                    </div>
-                    <div className="col s3">
-                        <Button
-                            variant="contained"
-                            size="small"
-                            color="primary"
-                            id="confirmName"
-                            onClick={this.onClickLogin}
-                            disabled={!this.state.name}>
-                            Enter
+                        <div className="col s3">
+                            <TextField
+                                id="userName"
+                                name="name"
+                                placeholder="Enter your name"
+                                value={this.state.name}
+                                onChange={(e) => this.setState({ name: e.target.value })}
+                            />
+                        </div>
+                        <div className="col s3">
+                            <Button
+                                variant="contained"
+                                size="small"
+                                color="primary"
+                                id="confirmName"
+                                onClick={this.onClickLogin}
+                                disabled={!this.state.name}>
+                                Enter
                         </Button>
-                    </div>
-                    <Button
+                        </div>
+                        <Button
                             variant="contained"
                             size="small"
                             color="primary"
@@ -64,7 +67,8 @@ class Welcome extends Component {
                             onClick={this.onClickAnonymous}>
                             Proceed anonymously
                         </Button>
-                </Fragment>
+                    </Fragment>
+                </div>
         );
     }
 }

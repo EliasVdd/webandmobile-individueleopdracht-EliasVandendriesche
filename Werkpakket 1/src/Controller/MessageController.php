@@ -7,6 +7,7 @@ use App\Model\MessageModel;
 use App\Model\PDOMessageModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -60,15 +61,15 @@ class MessageController extends AbstractController
     }
     
     /**
-    * @Route("/message/find/{content}", methods={"GET"}, name="getMessageByContent")
+    * @Route("/message", methods={"GET"}, name="getMessageByContentAndOrCategory")
     */
-    public function findMessageByContent($content)
+    public function findMessage(Request $request)
     {
         $statusCode = 200;
         $messages = null;
 
         try {
-            $messages = $this->messageModel->findMessageByContent($content);
+            $messages = $this->messageModel->findMessage($request->query->get('content'), $request->query->get('category'));
             if ($messages == null) {
                 $statusCode = 404;
             }
@@ -79,28 +80,6 @@ class MessageController extends AbstractController
         }
 
         return new JsonResponse($messages, $statusCode);
-    }
-    
-    /**
-    * @Route("/message/find/{content}/{category}", methods={"GET"}, name="getMessageByContentAndCategory")
-    */
-    public function findMessageByContentAndCategory($content, $category)
-    {
-        $statuscode = 200;
-        
-        $messages = null;
-        try {
-            $messages = $this->messageModel->findMessageByContentAndCategory($content, $category);
-            if ($messages == null) {
-                $statuscode = 404;
-            }
-        } catch (\InvalidArgumentException $exception) {
-            $statuscode = 400;
-        } catch (\PDOException $exception) {
-            $statuscode = 500;
-        }
-        
-        return new JsonResponse($messages, $statuscode);
     }
     
     /**

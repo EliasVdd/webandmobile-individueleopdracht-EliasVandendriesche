@@ -76,7 +76,7 @@ function NavigationBar (props) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar style={{background:'#030203'}}>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
             <MenuIcon />
           </IconButton>
@@ -89,12 +89,25 @@ function NavigationBar (props) {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Search content..."
               classes={{
                 root: classes.inputRoot,
-                input: classes.inputInput,
-                onChange: props.onSearchContentSubmit
+                input: classes.inputInput
               }}
+              onChange={props.onSearchContentSubmit}
+            />
+          </div>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search category..."
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+              onChange={props.onSearchCategorySubmit}
             />
           </div>
         </Toolbar>
@@ -105,7 +118,8 @@ function NavigationBar (props) {
 
 NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  onSearchContentSubmit: PropTypes.func.isRequired
+  onSearchContentSubmit: PropTypes.func,
+  onSearchCategorySubmit: PropTypes.func
 };
 
 function mapStateToProps(state) {

@@ -12,27 +12,11 @@ class Dashboard extends Component {
 
     render() {
         return (
-    <div className="App">
-        <NavigationBar
-        onSearchContentSubmit={this.onSearchContentSubmit}
-        />
-
-        <Switch>
-          <Route exact path='/' component={Welcome} />
-          <Route path='/messageList' component={MessageList} />
-        </Switch>
-    </div>
+            <div className="App">
+                <Route exact path='/' component={Welcome} />
+                <Route path='/messageList' component={MessageList} />
+            </div>
         );
-    }
-
-    getMessagesWithContent(){
-        var content = 'dolor';
-        axios.get('http://localhost:8000/messages/find/' + content)
-        .then(response => {
-            const messages = response.data;
-            this.setState({ messages })
-        })
-
     }
 }
 
