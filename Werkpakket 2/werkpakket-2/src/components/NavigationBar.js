@@ -95,7 +95,7 @@ function NavigationBar (props) {
                 input: classes.inputInput
               }}
               id="searchContent"
-              onChange={props.onSearchSubmit}
+              onKeyPress={props.onSearchSubmit}
             />
           </div>
           <div className={classes.search}>
@@ -109,7 +109,7 @@ function NavigationBar (props) {
                 input: classes.inputInput
               }}
               id="searchCategory"
-              onChange={props.onSearchSubmit}
+              onKeyPress={props.onSearchSubmit}
             />
           </div>
         </Toolbar>
