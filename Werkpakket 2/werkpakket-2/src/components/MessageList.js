@@ -5,6 +5,8 @@ import axios from 'axios';
 import AddReaction from './AddReaction.js'
 import ReactionText from './ReactionText'
 import { List, ListItem, ListItemContent } from 'react-mdl';
+import NavigationBar from './NavigationBar.js';
+
 
 class MessageList extends Component {
     constructor(props) {
@@ -37,7 +39,7 @@ class MessageList extends Component {
             .then(response => {
                 const updatedMessages = Array.from(this.state.messages);
                 updatedMessages[id - 1] = response.data;
-                this.setState({messages: updatedMessages});
+                this.setState({ messages: updatedMessages });
             });
     }
 
@@ -46,7 +48,7 @@ class MessageList extends Component {
             .then(response => {
                 const updatedMessages = Array.from(this.state.messages);
                 updatedMessages[id - 1] = response.data;
-                this.setState({messages: updatedMessages});
+                this.setState({ messages: updatedMessages });
             });
     }
 
@@ -67,11 +69,11 @@ class MessageList extends Component {
     reactToComment = () => {
         if (this.state.reactionModelToAdd.content.trim()) {
             axios.post('http://localhost:8000/reaction/' + this.state.reactionModelToAdd.messageId + '/' + this.state.reactionModelToAdd.content)
-            .then(response => {
-                const updatedReactions = Array.from(response.data);
-                this.setState({ reactions: updatedReactions });
-            });
-        
+                .then(response => {
+                    const updatedReactions = Array.from(response.data);
+                    this.setState({ reactions: updatedReactions });
+                });
+
         }
         this.setState({
             reactionModelToAdd: {
@@ -79,6 +81,28 @@ class MessageList extends Component {
                 content: ''
             }
         });
+    }
+
+    onSearchContentSubmit = (event) => {
+        var content = event.target.value;
+        axios.get('http://localhost:8000/message?content=' + content)
+            .then(response => {
+                const filteredMessages = response.data;
+                this.setState({
+                    messages: filteredMessages
+                });
+            });
+    }
+
+    onSearchCategorySubmit = (event) => {
+        var category = event.target.value
+        axios.get('http://localhost:8000/message?category=' + category)
+            .then(response => {
+                const filteredMessages = response.data;
+                this.setState({
+                   messages: filteredMessages 
+                });
+            });
     }
 
     renderMessages() {
@@ -91,7 +115,13 @@ class MessageList extends Component {
 
     render() {
         return (
-            this.renderMessages()
+            <div>
+                <NavigationBar 
+                    onSearchContentSubmit={this.onSearchContentSubmit}
+                    onSearchCategorySubmit={this.onSearchCategorySubmit}
+                />
+                {this.renderMessages()}
+            </div>
         );
     }
 }

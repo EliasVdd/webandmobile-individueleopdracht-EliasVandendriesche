@@ -13,35 +13,10 @@ class Dashboard extends Component {
     render() {
         return (
             <div className="App">
-                <NavigationBar
-                    onSearchContentSubmit={this.onSearchContentSubmit}
-                    onSearchCategorySubmit={this.onSearchCategorySubmit}
-                />
-
-                <Switch>
-                    <Route exact path='/' component={Welcome} />
-                    <Route path='/messageList' component={MessageList} />
-                </Switch>
+                <Route exact path='/' component={Welcome} />
+                <Route path='/messageList' component={MessageList} />
             </div>
         );
-    }
-
-    onSearchContentSubmit() {
-        var content = 'dolor';
-        axios.get('http://localhost:8000/message?content=' + content)
-            .then(response => {
-                const messages = response.data;
-                console.log(messages);
-            });
-    }
-
-    onSearchCategorySubmit() {
-        var category = 'hardware';
-        axios.get('http://localhost:8000/message?category=' + category)
-        .then(response => {
-            const messages = response.data;
-            console.log(messages);
-        });
     }
 }
 
