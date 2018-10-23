@@ -35,8 +35,8 @@ const Message = (props) => {
                     </ReactionText>
 
                     <div style={{ width: '100%' }}>
-                        <FABButton style={{ float: 'left' }} raised ripple onClick={() => props.onClickUpvote(props.messageModel.id)}>
-                            <Icon name="thumb_up_alt" />
+                        <FABButton style={{ float: 'left' }} raised ripple onClick={() => props.onClickUpvote(props.messageModel.id)} >
+                            <Icon name="thumb_up_alt"/>
                         </FABButton>
                         <FABButton style={{ float: 'right' }} raised ripple onClick={() => props.onClickDownvote(props.messageModel.id)}>
                             <Icon name="thumb_down_alt" />
