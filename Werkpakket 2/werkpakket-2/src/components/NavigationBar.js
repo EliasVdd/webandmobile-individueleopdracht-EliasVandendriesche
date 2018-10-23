@@ -84,7 +84,7 @@ function NavigationBar (props) {
             {props.username}
           </Typography>
           <div className={classes.grow} />
-          <div className={classes.search}>
+          <div className={classes.search} style={{ display: props.displaySearchFields }}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -98,7 +98,7 @@ function NavigationBar (props) {
               onKeyPress={props.onSearchSubmit}
             />
           </div>
-          <div className={classes.search}>
+          <div className={classes.search} style={{ display: props.displaySearchFields }}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -120,7 +120,8 @@ function NavigationBar (props) {
 
 NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  onSearchSubmit: PropTypes.func
+  onSearchSubmit: PropTypes.func,
+  displaySearchFields: PropTypes.string
 };
 
 function mapStateToProps(state) {

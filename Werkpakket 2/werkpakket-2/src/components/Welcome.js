@@ -34,7 +34,7 @@ class Welcome extends Component {
         return (
             this.state.navigate ? <Redirect to="/messageList" /> :
                 <div>
-                    <NavigationBar />
+                    <NavigationBar displaySearchFields={'none'}/>
                     <Fragment>
                         <Typography variant="title">
                             Welcome!
