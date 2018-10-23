@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
-use http\Env\Request;
-use http\Env\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/default", name="default")
+     * @Route("/", name="defaultroute")
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class DefaultController extends AbstractController
      */
     public function showAdminPage(Request $request)
     {
-        return new Response();
+        return $this->render('user.html.twig');
     }
 
     /**

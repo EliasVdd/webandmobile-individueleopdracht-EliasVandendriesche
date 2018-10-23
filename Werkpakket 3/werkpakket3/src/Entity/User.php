@@ -78,6 +78,17 @@ class User implements UserInterface, \Serializable
         return preg_split("/[\s,]+/", $this->rolesString);
     }
 
+    public function getUser()
+    {
+        $user = new User();
+        $user->id = $this->id;
+        $user->userName = $this->userName;
+        $user->rolesString = $this->rolesString;
+        $user->password = $this->password;
+
+        return $user;
+    }
+
     public function getSalt()
     {
         return null;
@@ -109,6 +120,8 @@ class User implements UserInterface, \Serializable
             $this->rolesString,
             ) = $this->unserialize($serialized);
     }
+
+
 
     public function __toString()
     {
