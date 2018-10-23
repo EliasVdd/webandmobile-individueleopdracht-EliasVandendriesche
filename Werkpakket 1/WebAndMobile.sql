@@ -53,6 +53,7 @@ INSERT INTO `Messages` (`id`, `content`, `category`, `upvotes`, `downvotes`) VAL
 --
 
 CREATE TABLE `Reactions` (
+  `reactionId` int(11) NOT NULL,
   `messageId` int(11) NOT NULL,
   `content` varchar(255) NOT NULL,
   `reactionToken` varchar(255) NOT NULL
@@ -62,8 +63,8 @@ CREATE TABLE `Reactions` (
 -- Dumping data for table `Reactions`
 --
 
-INSERT INTO `Reactions` (`messageId`, `content`, `reactionToken`) VALUES
-(1, 'JonasReageertLol', 'saltvoorextrapunten15bb33469431fa2.28065481');
+INSERT INTO `Reactions` (`reactionId`, `messageId`, `content`, `reactionToken`) VALUES
+(1 ,1, 'JonasReageertLol', 'saltvoorextrapunten15bb33469431fa2.28065481');
 
 --
 -- Indexes for dumped tables
@@ -75,6 +76,8 @@ INSERT INTO `Reactions` (`messageId`, `content`, `reactionToken`) VALUES
 ALTER TABLE `Messages`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `Reactions`
+  ADD PRIMARY KEY (`reactionId`);
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -84,6 +87,9 @@ ALTER TABLE `Messages`
 --
 ALTER TABLE `Messages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `Reactions`
+  MODIFY `reactionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
