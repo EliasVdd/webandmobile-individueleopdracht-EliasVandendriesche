@@ -91,6 +91,10 @@ class MessageList extends Component {
             var content = event.target.value;
             this.setState({
                 searchContentString: content
+            }, () => {
+                if (this.state.searchContentString === '' && this.state.searchCategoryString === '') {
+                    this.componentDidMount();
+                }
             });
             // Check if necessary to search by both content and category --> category InputBase also has text?
             if (this.state.searchCategoryString !== '') {
@@ -100,12 +104,12 @@ class MessageList extends Component {
                         const filteredMessages = response.data;
                         this.setState({
                             messages: filteredMessages
-                        })
+                        });
                     },
                     (error) => {
                         this.setState({
                             messages: []
-                        })
+                        });
                     }
                 );
             // category InputBase has no text
@@ -116,12 +120,12 @@ class MessageList extends Component {
                         const filteredMessages = response.data;
                         this.setState({
                             messages: filteredMessages
-                        })
+                        });
                     },
                     (error) => {
                         this.setState({
                             messages: []
-                        })
+                        });
                     }
                 );
             }
@@ -130,6 +134,10 @@ class MessageList extends Component {
             var category = event.target.value;
             this.setState({
                 searchCategoryString: category
+            }, () => {
+                if (this.state.searchContentString === '' && this.state.searchCategoryString === '') {
+                    this.componentDidMount();
+                }
             });
             // Check if necessary to search by both content and category --> content InputBase also has text?
             if (this.state.searchContentString !== '') {
@@ -139,12 +147,12 @@ class MessageList extends Component {
                         const filteredMessages = response.data;
                         this.setState({
                             messages: filteredMessages
-                        })
+                        });
                     },
                     (error) => {
                         this.setState({
                             messages: []
-                        })
+                        });
                     }
                 );
             // content InputBase has no text
@@ -155,12 +163,12 @@ class MessageList extends Component {
                         const filteredMessages = response.data;
                         this.setState({
                             messages: filteredMessages
-                        })
+                        });
                     },
                     (error) => {
                         this.setState({
                             messages: []
-                        })
+                        });
                     }
                 );
             }
