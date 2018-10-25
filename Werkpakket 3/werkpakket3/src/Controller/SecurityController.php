@@ -81,7 +81,13 @@ class SecurityController extends AbstractController
             'security/register.html.twig',
             array('form' => $form->createView())
         );
+    }
 
+    /**
+     * @Route("/quit", name="app_quit")
+     */
+    public function quitAction(Request $request)
+    {
 
     }
 }
