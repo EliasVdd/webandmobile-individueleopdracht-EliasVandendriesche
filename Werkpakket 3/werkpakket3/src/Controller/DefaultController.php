@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class DefaultController extends AbstractController
 {
@@ -21,6 +22,7 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/admin", name="adminroute")
+     * @Security("has_role('Admin')")
      */
     public function showAdminPage(Request $request)
     {
@@ -29,6 +31,7 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/user", name="userroute")
+     * @Security("has_role('User') or has_role('Admin')")
      */
     public function showUserPage(Request $request)
     {
