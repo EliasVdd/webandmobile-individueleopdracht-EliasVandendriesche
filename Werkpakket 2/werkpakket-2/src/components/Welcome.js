@@ -6,9 +6,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { storeUserName } from "../actions/userInfoActions";
-import MessageList from './MessageList.js';
 import NavigationBar from './NavigationBar.js';
-
 
 class Welcome extends Component {
     constructor(props) {
@@ -34,7 +32,7 @@ class Welcome extends Component {
         return (
             this.state.navigate ? <Redirect to="/messageList" /> :
                 <div>
-                    <NavigationBar displaySearchFields={'none'}/>
+                    <NavigationBar displaySearchFields={'none'} />
                     <Fragment>
                         <Typography variant="title">
                             Welcome!
