@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import './Message';
 import Message from './Message';
 import axios from 'axios';
-import AddReaction from './AddReaction.js'
-import ReactionText from './ReactionText'
-import { List, ListItem, ListItemContent } from 'react-mdl';
 import NavigationBar from './NavigationBar.js';
-
+import { ProgressBar } from 'react-mdl';
 
 class MessageList extends Component {
     constructor(props) {
@@ -19,11 +16,15 @@ class MessageList extends Component {
                 content: ''
             },
             searchContentString: '',
-            searchCategoryString: ''
+            searchCategoryString: '',
+            messagesLoading: false
         }
     }
 
     componentDidMount() {
+        this.setState({
+            messagesLoading: true
+        })
         axios.get('http://localhost:8000/messages')
             .then(response => {
                 const messages = response.data;
@@ -32,7 +33,7 @@ class MessageList extends Component {
         axios.get('http://localhost:8000/reactions')
             .then(response => {
                 const reactions = response.data;
-                this.setState({ reactions });
+                this.setState({ reactions, messagesLoading: false });
             });
     }
 
@@ -191,6 +192,15 @@ class MessageList extends Component {
                 <NavigationBar
                     onSearchSubmit={this.onSearchSubmit}
                 />
+                {this.state.messagesLoading ?
+                    <div style={{
+                        width: '100%'
+                    }}>
+                        <ProgressBar indeterminate style={{ width: '100%', height: '5px' }} />
+                    </div>
+                    : null
+                }
+
                 {this.renderMessages()}
             </div>
         );

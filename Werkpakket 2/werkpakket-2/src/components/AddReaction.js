@@ -14,24 +14,24 @@ const AddReaction = (props) => {
             <Textfield
                 id={reactionModelToAdd.messageId}
                 label='Place a reaction...'
-                style={{ width: '200px' }}
+                style={{ width: '500px' }}
                 defaultValue={reactionModelToAdd.content}
-                onChange={onReactionTextfieldChanged} 
-                rows={3}
-                maxLength='255'          
+                onChange={onReactionTextfieldChanged}
+                rows={5}
+                maxLength='254'
             />
-        <div>
+            <div>
                 <Button onClick={reactToComment}>
                     Add reaction
                 </Button>
-                </div>
+            </div>
         </div>
-        
+
     );
 }
 
 AddReaction.defaultProps = {
-    reactionModelToAdd: { messageId: 0, content:'' }
+    reactionModelToAdd: { messageId: 0, content: '' }
 }
 
 AddReaction.PropTypes = {

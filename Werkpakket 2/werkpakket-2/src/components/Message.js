@@ -8,8 +8,8 @@ import ReactionText from './ReactionText'
 
 const Message = (props) => {
     return (
-        <div style={{  width: "50%", margin: "auto" }}>
-            <Card shadow={0} style={{ background:"#FFFFFF", maxWidth: 'auto', width: 'auto', margin: 'auto', marginTop: '20px', marginBottom: '30px',boxShadow:'2px 2px 10px 10px lightgrey' }}>
+        <div style={{ width: "50%", margin: "auto" }}>
+            <Card shadow={0} style={{ background: "#FFFFFF", maxWidth: 'auto', width: 'auto', margin: 'auto', marginTop: '20px', marginBottom: '30px', boxShadow: '1px 1px 2.5px 2.5px lightgrey' }}>
                 <CardTitle style={{ color: '#fff', minHeight: '50px', height: 'auto', background: '#58A618' }}>
                     Category: {props.messageModel.category}, Upvotes: {props.messageModel.upvotes}, Downvotes: {props.messageModel.downvotes}
                 </CardTitle>
@@ -21,8 +21,11 @@ const Message = (props) => {
                         <div>
                             {props.reactions.filter(r => parseInt(r.messageId) === parseInt(props.messageModel.id)).map(reactionModel =>
                                 <List>
-                                    <ListItem threeLine style={{ background: "#FFFFFF", boxShadow:'1px 1px 1px 1px lightgrey'}}>
-                                        <ListItemContent avatar="person" subtitle={reactionModel.content}>{reactionModel.messageId}</ListItemContent>
+                                    <ListItem threeLine style={{ background: "#FFFFFF", boxShadow: '0.5px 0.5px 0.5px 0.5px lightgrey', padding: '5px' }}>
+                                        <ListItemContent avatar="person"></ListItemContent>
+                                        <CardText style={{ textAlign: 'left' }}>
+                                            {reactionModel.content}
+                                        </CardText>
                                     </ListItem>
                                 </List>
                             )}
@@ -36,7 +39,7 @@ const Message = (props) => {
 
                     <div style={{ width: '100%' }}>
                         <FABButton style={{ float: 'left' }} raised ripple onClick={() => props.onClickUpvote(props.messageModel.id)} >
-                            <Icon name="thumb_up_alt"/>
+                            <Icon name="thumb_up_alt" />
                         </FABButton>
                         <FABButton style={{ float: 'right' }} raised ripple onClick={() => props.onClickDownvote(props.messageModel.id)}>
                             <Icon name="thumb_down_alt" />
