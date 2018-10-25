@@ -31,6 +31,14 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/login_check", name="checkroute")
+     */
+    public function loginCheck()
+    {
+
+    }
+
+    /**
      * @Route("/register", name="app_register")
      */
     public function register (){

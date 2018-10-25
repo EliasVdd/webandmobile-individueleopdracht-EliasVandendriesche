@@ -3,10 +3,17 @@ security:
     providers:
         db_provider:
             entity:
-                class: App/Entity/User
+                class: App\Entity\User
                 property: userName
 
     firewalls:
+        secured_area:
+            pattern: ^/
+            anonymous: ~
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                default_target_path: userroute
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -15,7 +22,7 @@ security:
             guard:
                 authenticators:
                     - App\Security\Authenticator
-        
+
 
             # activate different ways to authenticate
 
@@ -29,7 +36,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/user, roles: [Admin, User] }
 
     encoders:
         App\Entity\User:

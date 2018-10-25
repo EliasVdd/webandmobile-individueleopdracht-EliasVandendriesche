@@ -32,6 +32,6 @@ class DefaultController extends AbstractController
      */
     public function showUserPage(Request $request)
     {
-        return new Response();
+        return $this->render('user.html.twig');
     }
 }
