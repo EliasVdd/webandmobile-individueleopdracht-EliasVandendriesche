@@ -21,20 +21,11 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="adminroute")
-     * @Security("has_role('Admin')")
-     */
-    public function showAdminPage(Request $request)
-    {
-        return $this->render('user.html.twig');
-    }
-
-    /**
-     * @Route("/user", name="userroute")
+     * @Route("/home", name="homeroute")
      * @Security("has_role('User') or has_role('Admin')")
      */
-    public function showUserPage(Request $request)
+    public function showHomePage(Request $request)
     {
-        return $this->render('user.html.twig');
+        return $this->render('home.html.twig');
     }
 }
