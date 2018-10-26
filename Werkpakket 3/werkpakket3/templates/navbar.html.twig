@@ -9,6 +9,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('homeroute') }}">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('messages') }}">Messages</a>
+                </li>
                 {% if is_granted(expression('"Admin" in roles')) %}
                     <li class="nav-item">
                         <a class="nav-link" href="#">Configuration</a>

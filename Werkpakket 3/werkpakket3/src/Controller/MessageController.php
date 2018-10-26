@@ -24,7 +24,9 @@ class MessageController extends AbstractController
             ->getRepository(Message::class)
             ->findAll();
 
-        return $this->render('message/index.html.twig', array('messages'=>$messages));
+        return $this->render('message/index.html.twig', [
+            'messages' => $messages
+        ]);
     }
 
     /**
@@ -47,10 +49,9 @@ class MessageController extends AbstractController
             return $this->redirectToRoute('messages');
         }
 
-        return $this->render(
-            'message/addMessage.html.twig',
-            array('form' => $form->createView())
-        );
+        return $this->render('message/addMessage.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     public function postMessage(Message $message)

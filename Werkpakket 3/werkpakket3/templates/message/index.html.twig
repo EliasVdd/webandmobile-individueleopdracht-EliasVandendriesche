@@ -1,4 +1,3 @@
-{% extends 'base.html.twig' %}
 {% block body %}
     <style>
         .jumbotron {
@@ -11,14 +10,12 @@
             {% if messages %}
             <ul>
                 {% for message in messages %}
-
                     <li>
                         {{ message }}
                     </li>
-
                 {% endfor %}
             </ul>
-                {% else %}
+            {% else %}
                 <p>No messages can be found</p>
             {% endif %}
 
