@@ -1,0 +1,25 @@
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand text-uppercase">{{ app.user.username }}</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('homeroute') }}">Home</a>
+                </li>
+                {% if is_granted(expression('"Admin" in roles')) %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Configuration</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_quit') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
