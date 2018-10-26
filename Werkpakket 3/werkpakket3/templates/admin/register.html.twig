@@ -1,1 +1,7 @@
-{{ form(form) }}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <h1>User Sign Up:</h1>
+    {{ form(form) }}
+
+{% endblock %}
