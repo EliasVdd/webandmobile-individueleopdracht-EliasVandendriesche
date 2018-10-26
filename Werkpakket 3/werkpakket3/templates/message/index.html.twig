@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <style>
+        .jumbotron {
+            max-width: 50%;
+        }
+    </style>
+
+    <div align="center">
+        <div class="jumbotron">
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+
+                    <li>
+                        {{ message }}
+                    </li>
+
+                {% endfor %}
+            </ul>
+                {% else %}
+                <p>No messages can be found</p>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}
