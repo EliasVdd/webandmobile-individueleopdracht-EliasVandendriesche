@@ -22,7 +22,7 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/home", name="homeroute")
-     * @Security("has_role('User') or has_role('Admin')")
+     * @Security("has_role('User') or has_role('Admin')or has_role('Moderator')")
      */
     public function showHomePage(Request $request)
     {
