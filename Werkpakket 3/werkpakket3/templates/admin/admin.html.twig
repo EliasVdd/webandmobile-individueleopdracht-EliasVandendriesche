@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">username</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <th scope="row">{{user.id}}</th>
+                        <td>{{user.userName}}</td>
+                        <td>
+                            <a href="admin/edit/{{ user.id }}">Edit</a>
+                            <div role="alert">
+                                <a href="admin/delete/{{ user.id }}" class="alert-link">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <a href={{ path('register_user')}}>
+                <button type="button" class="btn btn-outline-dark">Add User</button>
+            </a>
+        </div>
+    {% endblock %}
