@@ -21,7 +21,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="adminroute")
+     * @Route("/adminPage", name="adminroute")
      * @Security("has_role('Admin')")
      */
     public function showAdminPage(Request $request)
@@ -31,7 +31,7 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/user", name="userroute")
-     * @Security("has_role('User') or has_role('Admin')")
+     * @Security("has_role('User') or has_role('Admin') or has_role('Moderator')")
      */
     public function showUserPage(Request $request)
     {

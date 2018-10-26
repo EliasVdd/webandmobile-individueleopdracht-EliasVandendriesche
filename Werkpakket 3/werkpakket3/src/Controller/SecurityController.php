@@ -83,6 +83,8 @@ class SecurityController extends AbstractController
         );
     }
 
+    
+
     /**
      * @Route("/quit", name="app_quit")
      */
