@@ -1,7 +1,16 @@
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>User Sign Up:</h1>
-    {{ form(form) }}
+    <div class="container">
+        <h1>Create user</h1>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.userName) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.rolesString) }}
+        {{ form_row(form.save, { 'label': 'Create' }) }}
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

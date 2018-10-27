@@ -14,7 +14,7 @@
                 </li>
                 {% if is_granted(expression('"Admin" in roles')) %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Configuration</a>
+                        <a class="nav-link" href="{{ path('users') }}">Users</a>
                     </li>
                 {% endif %}
             </ul>

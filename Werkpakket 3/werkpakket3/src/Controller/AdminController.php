@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin_userlist")
+     * @Route("/admin", name="users")
      */
     public function adminPage()
     {
@@ -62,7 +62,7 @@ class AdminController extends AbstractController
             $em->remove($user);
             $em->flush();
           
-            return $this->redirectToRoute('admin_userlist');
+            return $this->redirectToRoute('users');
         }
     }
     /**
@@ -71,8 +71,9 @@ class AdminController extends AbstractController
     public function register()
     {
         $user = new User();
+
         $form = $this->createForm(UserType::class, $user, array(
-            'action' => $this->generateUrl('app_registerUser'),
+            'action' => $this->generateUrl('app_registerUser')        
         ));
 
         return $this->render(
