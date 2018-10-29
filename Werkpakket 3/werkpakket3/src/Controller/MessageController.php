@@ -56,6 +56,41 @@ class MessageController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/deletemessage/{id}", name="deletemessage")
+     */
+    public function deleteMessage($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $message = $em->find(Message::class, $id);
+
+        if($message == null)
+        {
+            return;
+        }
+
+        $em->remove($message);
+        $em->flush();
+
+        return $this->redirectToRoute('messages');
+    }
+
+    /**
+     * @Route("/updatemessage/{id}", name="updatemessage")
+     */
+    public function updateMessage($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $message = $em->find(Message::class, $id);
+
+        if($message == null)
+        {
+            return;
+        }
+
+        return $this->redirectToRoute('getmessage',array('message' => $message));
+    }
+
     public function postMessage(Message $message)
     {
         $emManager = $this->getDoctrine()->getManager();

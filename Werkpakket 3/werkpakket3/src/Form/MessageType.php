@@ -20,10 +20,22 @@ use App\Entity\Message;
 
 class MessageType extends AbstractType
 {
+
+    private $message;
+
+    /**
+     * MessageType constructor.
+     */
+    public function __construct()
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', TextType::class)
+            ->add('content', TextType::class, array(
+                'data' => ''
+            ))
             ->add('category', EntityType::class, array(
                 'class' => Category::class,
                 'choice_label' => 'name'

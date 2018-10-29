@@ -8,13 +8,34 @@
     <div align="center">
         <div class="jumbotron">
             {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <li>
-                        {{ message }}
-                    </li>
-                {% endfor %}
-            </ul>
+                {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) %}
+                    <ul>
+                    {% for message in messages %}
+                        <li>
+                            {{ message }} <a href="{{ path('deletemessage', {'id': message.id}) }}">Delete</a> <a
+                                    href="{{ path('updatemessage', {'id': message.id}) }}">Update</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% elseif is_granted('ROLE_USER') %}
+
+                    <ul>
+                        {% for message in messages %}
+                            {% if message.userid == app.user.id %}
+                            <li>
+                                {{ message }} <a href="{{ path('deletemessage', {'id': message.id}) }}">Delete</a> <a
+                                        href="{{ path('updatemessage', {'id': message.id}) }}">Update</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No messages found for your account</p>
+
+                {% endif %}
+                <ul>
+
+                </ul>
             {% else %}
                 <p>No messages can be found</p>
             {% endif %}
