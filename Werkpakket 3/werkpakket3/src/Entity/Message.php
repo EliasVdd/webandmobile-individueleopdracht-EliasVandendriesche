@@ -26,6 +26,11 @@ class Message
      */
     private $userid;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $categoryid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,22 @@ class Message
         $this->userid = $userid;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->categoryid;
+    }
+
+    /**
+     * @param mixed $categoryid
+     */
+    public function setCategory($categoryid): void
+    {
+        $this->categoryid = $categoryid;
     }
 
     public function __toString()

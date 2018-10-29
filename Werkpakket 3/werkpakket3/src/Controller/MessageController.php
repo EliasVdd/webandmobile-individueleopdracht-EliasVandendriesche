@@ -41,8 +41,10 @@ class MessageController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $message = new Message();
-            $message->setContent($form->getData());
+            $formData = $form->getData();
+            $message->setContent($formData->getContent());
             $message->setUserid($this->getUser()->getId());
+            $message->setCategory($formData->getCategory()->getId());
 
             $this->postMessage($message);
 
