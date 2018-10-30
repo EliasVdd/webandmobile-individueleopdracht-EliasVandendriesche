@@ -8,9 +8,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Message;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
+use App\Entity\Reaction;
+use App\Form\ReactionType;
 
 class MessageController extends AbstractController
 {
+    
     public function __construct()
     {
     }
@@ -20,12 +23,15 @@ class MessageController extends AbstractController
      */
     public function index(Request $request)
     {
+        $form = $this->createForm(ReactionType::class, new Reaction());
+
         $messages = $this->getDoctrine()
             ->getRepository(Message::class)
             ->findAll();
 
         return $this->render('message/index.html.twig', [
-            'messages' => $messages
+            'messages' => $messages,      
+            'form' => $form->createView()
         ]);
     }
 
@@ -89,6 +95,32 @@ class MessageController extends AbstractController
         }
 
         return $this->redirectToRoute('getmessage',array('message' => $message));
+    }
+
+    /**
+     * @Route("/reactToMessage/{id}", methods={"GET", "POST"}, name="reactToMessage")
+     */
+    public function reactToMessage(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(ReactionType::class, new Reaction());
+
+        $message = $em->find(Message::class, $id);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $reaction = new Reaction();
+            $formData = $form->getData();
+            $reaction->setContent($formData->getContent());
+            $reaction->setMessage($message);
+            $reaction->setToken(uniqid('saltvoorextrapunten'.$id, true));
+
+            $em->persist($reaction);
+            $em->flush();
+            
+            return $this->redirectToRoute('messages');
+        }       
     }
 
     public function postMessage(Message $message)

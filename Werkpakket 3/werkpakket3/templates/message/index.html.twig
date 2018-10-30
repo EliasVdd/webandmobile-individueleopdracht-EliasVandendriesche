@@ -5,6 +5,12 @@
         .jumbotron {
             max-width: 50%;
         }
+        .card{
+            margin: 15px;
+        }
+        .card-body{
+            background: white;
+        }
     </style>
 
     <div align="center">
@@ -20,13 +26,20 @@
                                         <p class="card-text">{{ message }}</p>
                                         <a href="{{ path('updatemessage', {'id': message.id}) }}" class="glyphicon glyphicon-pencil"></a>
                                         <a href="{{ path('deletemessage', {'id': message.id}) }}" class="glyphicon glyphicon-trash"></a>
+                                        {% for reaction in message.reactions %}
+                                            <p class="card-text">{{ reaction.content }}</p>
+                                        {% endfor %}
                                     </div>
+                                    <div margin-top="10px" class="container">
+                                        <form action="{{ path('reactToMessage', {'id': message.id}) }}" method="post">
+                                        {{ form(form) }}
+                                        </form>
+                                    <div>
                                 </div>
                             </div>
                         {% endfor %}
                     </ul>
                 {% elseif is_granted('ROLE_USER') %}
-
                     <ul>
                         {% for message in messages %}
                             {% if message.userid == app.user.id %}

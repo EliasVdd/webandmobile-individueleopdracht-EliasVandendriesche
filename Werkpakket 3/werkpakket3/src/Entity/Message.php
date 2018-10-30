@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class Message
      * @ORM\Column(type="integer")
      */
     private $categoryid;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reaction", mappedBy="message")
+     */
+    private $reactions;
+
+    public function __construct()
+    {
+        $this->reactions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -79,6 +91,37 @@ class Message
     public function __toString()
     {
         return $this->getContent();
+    }
+
+    /**
+     * @return Collection|Reaction[]
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setMessage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->contains($reaction)) {
+            $this->reactions->removeElement($reaction);
+            // set the owning side to null (unless already changed)
+            if ($reaction->getMessage() === $this) {
+                $reaction->setMessage(null);
+            }
+        }
+
+        return $this;
     }
 
 
