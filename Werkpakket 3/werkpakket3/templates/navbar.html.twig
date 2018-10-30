@@ -12,7 +12,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('messages') }}">Messages</a>
                 </li>
-                {% if is_granted(expression('"Admin" in roles')) %}
+                {% if (is_granted('ROLE_ADMIN')) %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('users') }}">Users</a>
                     </li>

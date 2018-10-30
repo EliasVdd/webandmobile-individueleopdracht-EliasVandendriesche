@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Security("has_role('Admin')")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class AdminController extends AbstractController
 {

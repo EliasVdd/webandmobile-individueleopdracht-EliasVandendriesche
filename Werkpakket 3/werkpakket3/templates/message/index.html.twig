@@ -1,3 +1,5 @@
+{% extends 'base.html.twig' %}
+
 {% block body %}
     <style>
         .jumbotron {
@@ -10,22 +12,36 @@
             {% if messages %}
                 {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) %}
                     <ul>
-                    {% for message in messages %}
-                        <li>
-                            {{ message }} <a href="{{ path('deletemessage', {'id': message.id}) }}">Delete</a> <a
-                                    href="{{ path('updatemessage', {'id': message.id}) }}">Update</a>
-                        </li>
-                    {% endfor %}
+                        {% for message in messages %}
+                            <div class="container">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Category</h5>
+                                        <p class="card-text">{{ message }}</p>
+                                        <a href="{{ path('updatemessage', {'id': message.id}) }}" class="glyphicon glyphicon-pencil"></a>
+                                        <a href="{{ path('deletemessage', {'id': message.id}) }}" class="glyphicon glyphicon-trash"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </ul>
                 {% elseif is_granted('ROLE_USER') %}
 
                     <ul>
                         {% for message in messages %}
                             {% if message.userid == app.user.id %}
-                            <li>
-                                {{ message }} <a href="{{ path('deletemessage', {'id': message.id}) }}">Delete</a> <a
-                                        href="{{ path('updatemessage', {'id': message.id}) }}">Update</a>
-                            </li>
+                                <li>
+                                    <div class="container">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Category</h5>
+                                                <p class="card-text">{{ message }}</p>
+                                                <a href="{{ path('updatemessage', {'id': message.id}) }}" class="glyphicon glyphicon-pencil"></a>
+                                                <a href="{{ path('deletemessage', {'id': message.id}) }}" class="glyphicon glyphicon-trash"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
                             {% endif %}
                         {% endfor %}
                     </ul>
@@ -33,9 +49,7 @@
                     <p>No messages found for your account</p>
 
                 {% endif %}
-                <ul>
-
-                </ul>
+                <ul></ul>
             {% else %}
                 <p>No messages can be found</p>
             {% endif %}

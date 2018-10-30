@@ -1,9 +1,15 @@
-{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR'))%}
+{% extends 'base.html.twig' %}
 
-    {{ form(form) }}
+{% block body %}
+    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR'))%}
 
-{% else %}
+        <div class="container">
+            {{ form(form) }}
+        </div>
+        
+    {% else %}
 
-    <p>Access denied</p>
+        <p>Access denied</p>
 
-{% endif %}
+    {% endif %}
+{% endblock %}
