@@ -34,7 +34,7 @@ class Message
     private $categoryid;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reaction", mappedBy="message")
+     * @ORM\OneToMany(targetEntity="App\Entity\Reaction", mappedBy="message", orphanRemoval=true)
      */
     private $reactions;
 
@@ -123,6 +123,4 @@ class Message
 
         return $this;
     }
-
-
 }
