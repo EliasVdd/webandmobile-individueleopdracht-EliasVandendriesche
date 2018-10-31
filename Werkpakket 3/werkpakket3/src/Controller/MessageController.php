@@ -114,6 +114,7 @@ class MessageController extends AbstractController
             $formData = $form->getData();
             $reaction->setContent($formData->getContent());
             $reaction->setMessage($message);
+            $reaction->setUser($this->getUser());
             $reaction->setToken(uniqid('saltvoorextrapunten'.$id, true));
 
             $em->persist($reaction);
