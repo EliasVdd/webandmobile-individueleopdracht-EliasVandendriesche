@@ -2,23 +2,42 @@
 
 {% block body %}
     <style>
-        .jumbotron {
-            max-width: 50%;
-        }
-        .card{
+        .card {
             margin: 15px;
         }
-        .card-body{
+        .card-body {
             background: white;
         }
     </style>
 
-    <div align="center">
-        <div class="jumbotron">
-            {% if messages %}
-                {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) %}
-                    <ul>
-                        {% for message in messages %}
+    {% set contentField = form_row(form.content) %}
+    {% set reactButton = form_row(form.React) %}
+    {% if messages %}
+        {% if (is_granted('ROLE_MODERATOR')or is_granted('ROLE_ADMIN')) %}
+            <div class="container">
+                <div class="card">
+                    {% for message in messages %}
+                        <div class="card-body">
+                            <h5 class="card-title">Category</h5>
+                            <p class="card-text">{{ message }}</p>
+                            <a href="{{ path('updatemessage', {'id': message.id}) }}" class="glyphicon glyphicon-pencil"></a>
+                            <a href="{{ path('deletemessage', {'id': message.id}) }}" class="glyphicon glyphicon-trash"></a>
+                            {% for reaction in message.reactions %}
+                                <p class="card-text">{{ reaction.content }}</p>
+                            {% endfor %}
+                            <form action="{{ path('reactToMessage', {'id': message.id}) }}" method="post">
+                            {{ contentField|raw }}
+                            {{ reactButton|raw }}
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% elseif is_granted('ROLE_USER') %}
+            <ul>
+                {% for message in messages %}
+                    {% if message.userid == app.user.id %}
+                        <li>
                             <div class="container">
                                 <div class="card">
                                     <div class="card-body">
@@ -26,47 +45,18 @@
                                         <p class="card-text">{{ message }}</p>
                                         <a href="{{ path('updatemessage', {'id': message.id}) }}" class="glyphicon glyphicon-pencil"></a>
                                         <a href="{{ path('deletemessage', {'id': message.id}) }}" class="glyphicon glyphicon-trash"></a>
-                                        {% for reaction in message.reactions %}
-                                            <p class="card-text">{{ reaction.content }}</p>
-                                        {% endfor %}
                                     </div>
-                                    <div margin-top="10px" class="container">
-                                        <form action="{{ path('reactToMessage', {'id': message.id}) }}" method="post">
-                                        {{ form(form) }}
-                                        </form>
-                                    <div>
                                 </div>
                             </div>
-                        {% endfor %}
-                    </ul>
-                {% elseif is_granted('ROLE_USER') %}
-                    <ul>
-                        {% for message in messages %}
-                            {% if message.userid == app.user.id %}
-                                <li>
-                                    <div class="container">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Category</h5>
-                                                <p class="card-text">{{ message }}</p>
-                                                <a href="{{ path('updatemessage', {'id': message.id}) }}" class="glyphicon glyphicon-pencil"></a>
-                                                <a href="{{ path('deletemessage', {'id': message.id}) }}" class="glyphicon glyphicon-trash"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No messages found for your account</p>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No messages found for your account</p>
 
-                {% endif %}
-                <ul></ul>
-            {% else %}
-                <p>No messages can be found</p>
-            {% endif %}
-
-        </div>
-    </div>
+        {% endif %}
+    {% else %}
+        <p>No messages can be found</p>
+    {% endif %}
 {% endblock %}
