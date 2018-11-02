@@ -1,32 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <head>
-    <div class="container">
+    <style>
+
+    </style>
+
+    {% include 'navbar.html.twig' %}
+
+    <div class="container mt-5">
         <table class="table">
             <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">username</th>
-                    <th scope="col"></th>
-                </tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col"></th>
+            </tr>
             </thead>
             <tbody>
-                {% for user in users %}
-                    <tr>
-                        <th scope="row">{{user.id}}</th>
-                        <td>{{user.userName}}</td>
-                        <td>
-                            <a href="admin/edit/{{ user.id }}"><i class="fas fa-pencil-alt"></i></a>
-                            <div role="alert">
-                                <a href="admin/delete/{{ user.id }}" class="alert-link"><i class="fas fa-trash-alt"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-            <a href={{ path('register_user')}}>
-                <button type="button" class="btn btn-dark">Add User</button>
-            </a>
-        </div>
-    {% endblock %}
+            {% for user in users %}
+                <tr>
+                    <th class="align-middle" scope="row">{{user.id}}</th>
+                    <td class="align-middle">{{user.userName}}</td>
+                    <td class="align-middle">
+                        <a href="admin/edit/{{ user.id }}"><i class="fas fa-pencil-alt"></i></a>
+                        <div role="alert">
+                            <a href="admin/delete/{{ user.id }}" class="alert-link"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href={{ path('register_user')}}>
+            <button type="button" class="btn btn-dark">Add User</button>
+        </a>
+    </div>
+{% endblock %}
