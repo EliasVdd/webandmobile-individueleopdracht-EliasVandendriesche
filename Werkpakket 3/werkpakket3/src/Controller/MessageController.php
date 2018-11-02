@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Entity\Reaction;
 use App\Form\ReactionType;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
 
 class MessageController extends AbstractController
 {
@@ -116,11 +118,18 @@ class MessageController extends AbstractController
             $reaction->setMessage($message);
             $reaction->setUser($this->getUser());
             $reaction->setToken(uniqid('saltvoorextrapunten'.$id, true));
+            
+            $response = new Response();
+            $response->send();
+            $response = $this->RedirectToRoute('messages');
 
             $em->persist($reaction);
             $em->flush();
+
+            $response->headers->setCookie(new Cookie('tokenCookie'.$reaction->getId(), $reaction->getToken(), time() +
+            (3600 * 48)));
             
-            return $this->redirectToRoute('messages');
+            return $response;
         }       
     }
 
