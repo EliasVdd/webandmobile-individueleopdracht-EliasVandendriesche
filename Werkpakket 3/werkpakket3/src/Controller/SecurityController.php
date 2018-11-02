@@ -74,7 +74,7 @@ class SecurityController extends AbstractController
             $em->persist($user->getUser());
             $em->flush();
             
-            return $this->redirectToRoute('defaultroute');
+            return $this->redirectToRoute('users');
         }
 
         return $this->render(

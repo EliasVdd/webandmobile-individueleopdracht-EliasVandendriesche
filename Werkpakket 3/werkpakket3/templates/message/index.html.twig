@@ -15,11 +15,14 @@
             margin: 15px;
         }
     </style>
+
+    {% include 'navbar.html.twig' %}
+
     {% set contentField = form_row(form.content) %}
     {% set reactButton = form_row(form.React) %}
     {% if messages %}
         {% if (is_granted('ROLE_MODERATOR')or is_granted('ROLE_ADMIN')) %}
-            <div class="container">
+            <div class="container mt-5">
                 <div class="card">
                     {% for message in messages %}
                         <div class="card-body">

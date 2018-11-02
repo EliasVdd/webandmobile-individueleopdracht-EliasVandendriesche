@@ -1,16 +1,53 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <h1>Create user</h1>
+    <style>
+        .jumbotron {
+            max-width: 50%;
+        }
 
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
-        {{ form_row(form.userName) }}
-        {{ form_row(form.password) }}
-        {{ form_row(form.rolesString) }}
-        {{ form_row(form.save, { 'label': 'Create' }) }}
-        {{ form_end(form) }}
+        form {
+            max-width: 25%;
+        }
+
+        label {
+            float: left;
+        }
+
+        @media (max-width: 575px) {
+            h1 {
+                font-size: 2.75rem !important;
+            }
+
+            form {
+                max-width: 75%;
+            }
+
+            .jumbotron {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 991px) {
+            form {
+                max-width: 50%;
+            }
+        }
+    </style>
+
+    <div align="center">
+        <div class="jumbotron">
+            <h1 class="display-4">Create User</h1>
+            <hr class="my-4"/>
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.userName) }}
+            {{ form_row(form.password) }}
+            {{ form_row(form.rolesString) }}
+            {{ form_row(form.save, { 'label': 'Create' }) }}
+            {{ form_end(form) }}
+        </div>
     </div>
 
 {% endblock %}
