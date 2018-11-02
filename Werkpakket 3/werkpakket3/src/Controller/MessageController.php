@@ -100,10 +100,11 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/reactToMessage/{id}", methods={"GET", "POST"}, name="reactToMessage")
+     * @Route("/message/react/{id}", methods={"GET", "POST"}, name="react_to_message")
      */
     public function reactToMessage(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
+        
         $form = $this->createForm(ReactionType::class, new Reaction());
 
         $message = $em->find(Message::class, $id);
@@ -128,9 +129,55 @@ class MessageController extends AbstractController
 
             $response->headers->setCookie(new Cookie('tokenCookie'.$reaction->getId(), $reaction->getToken(), time() +
             (3600 * 48)));
+
+            $response->headers->setCookie(new Cookie('userCookie'.$reaction->getId(), $this->getUser(), time() +
+            (3600 * 48)));
+            
             
             return $response;
         }       
+    }
+
+    /**
+     * @Route("/reaction/edit/{id}", methods={"GET", "POST"}, name="edit_reaction")
+     */
+    public function editReaction(Request $request,Reaction $reaction) {
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $editReactionForm = $this->createForm(ReactionType::class, $reaction);
+
+        $editReactionForm->handleRequest($request);
+
+        if($editReactionForm->isSubmitted() && $editReactionForm->isValid())
+        {
+            
+            $em->persist($reaction);
+            $em->flush();
+            return $this->redirectToRoute('messages');
+        }
+
+        return $this->render('Message/editReaction.html.twig', [
+            'editReactionForm' => $editReactionForm->createView()
+        ]);
+    }
+
+     /**
+     * @Route("/reaction/delete/{id}", name="delete_reaction")
+     */
+    public function deleteReaction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $reaction = $em->find(Reaction::class, $id);
+
+        if($reaction == null)
+        {
+            return;
+        }
+
+        $em->remove($reaction);
+        $em->flush();
+
+        return $this->redirectToRoute('messages');
     }
 
     public function postMessage(Message $message)
