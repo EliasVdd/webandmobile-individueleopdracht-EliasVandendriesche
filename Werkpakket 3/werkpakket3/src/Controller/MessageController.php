@@ -108,7 +108,7 @@ class MessageController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isSubmitted())
         {
             $reaction = new Reaction();
             $formData = $form->getData();
