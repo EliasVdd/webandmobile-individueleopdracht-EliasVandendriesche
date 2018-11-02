@@ -11,11 +11,31 @@
     form {
         max-width: 25%;
     }
+
+    @media (max-width: 575px) {
+        h1 {
+            font-size: 2.75rem !important;
+        }
+
+        form {
+            max-width: 75%;
+        }
+
+        .jumbotron {
+            max-width: 75%;
+        }
+    }
+
+    @media (max-width: 991px) {
+        form {
+            max-width: 50%;
+        }
+    }
 </style>
 
 <div align="center">
     <div class="jumbotron">
-        <h1 class="display-4">Please sign in</h1>
+        <h1 class="display-4">Sign in</h1>
         <hr class="my-4"/>
         <form method="post" action="{{ path('checkroute') }}">
             {% if error %}
@@ -45,7 +65,7 @@
             </div>
             #}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <button class="btn btn-primary float-right" type="submit">Sign in</button>
+            <button class="btn btn-primary" type="submit">Sign in</button>
         </form>
     </div>
 </div>
