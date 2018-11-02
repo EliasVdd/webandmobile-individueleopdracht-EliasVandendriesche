@@ -7,13 +7,23 @@
     .jumbotron {
         max-width: 50%;
     }
+
+    @media (max-width: 575px) {
+        h1 {
+            font-size: 3.0rem !important;
+        }
+
+        a {
+            font-size: 1rem !important;
+        }
+    }
 </style>
 
 <div align="center">
     <div class="jumbotron">
-        <h1 class="display-4">Welcome!</h1>
+        <h1>Welcome!</h1>
         <hr class="my-4"/>
-        <a class="btn btn-primary btn-lg" href="{{ path('homeroute') }}">Proceed to the Homepage</a>
+        <a class="btn btn-primary" href="{{ path('homeroute') }}">Proceed to the Homepage</a>
     </div>
 </div>
 {% endblock %}
