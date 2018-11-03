@@ -12,7 +12,11 @@ use App\Entity\Reaction;
 use App\Form\ReactionType;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * @Security("has_role('ROLE_USER') or has_role('ROLE_ADMIN')or has_role('ROLE_MODERATOR')")
+ */
 class MessageController extends AbstractController
 {
     
