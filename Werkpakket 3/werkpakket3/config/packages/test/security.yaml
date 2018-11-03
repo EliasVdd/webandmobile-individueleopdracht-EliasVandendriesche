@@ -1,0 +1,23 @@
+security:
+  # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+  providers:
+    db_provider:
+      entity:
+        class: App\Entity\User
+        property: userName
+
+  firewalls:
+    secured_area:
+      pattern: ^/
+      anonymous: ~
+      form_login:
+        login_path: /login
+        check_path: /login_check
+      logout:
+        path: /quit
+        target: /
+
+  encoders:
+    App\Entity\User:
+      algorithm: bcrypt
+      cost: 12
