@@ -2,16 +2,15 @@
 
 {% block body %}
     <style>
-        .card {
-            margin: 15px;
-        }
-        a {
-            margin-bottom: 15px;
-        }
         .card-body {
             background: white;
         }
-        .border-bottom border-gray pb-2 mb-0 {
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .border-bottom {
             margin: 15px;
         }
     </style>
@@ -21,15 +20,25 @@
     {% set contentField = form_row(form.content) %}
     {% set reactButton = form_row(form.React) %}
     {% if messages %}
-        {% if (is_granted('ROLE_MODERATOR')or is_granted('ROLE_ADMIN')) or is_granted('ROLE_USER') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY')%}
+        {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) or is_granted('ROLE_USER') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
             <div class="container mt-5">
-                <div class="card">
+                <div align="left">
+                    {% if (is_granted('ROLE_USER') or is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) %}
+                        <a type="button" class="btn btn-secondary" href="{{ path('getmessage') }}">Add Message</a>
+                    {% endif %}
+                </div>
+                <div class="card mt-3">
                     {% for message in messages %}
                         <div class="card-body">
                             <h5 class="card-title">Category</h5>
-                            <p class="card-text">{{ message }}</p>
-                            <a href="{{ path('updatemessage', {'id': message.id}) }}" class="fas fa-pencil-alt"></a>
-                            <a href="{{ path('deletemessage', {'id': message.id}) }}" class="fas fa-trash-alt"></a>
+                            <p class="card-text">
+                                <span>{{ message }}</span>
+                                <span class="float-right">
+                                    {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) %}
+                                        <a href="{{ path('deletemessage', {'id': message.id}) }}" class="fas fa-trash-alt"></a>
+                                    {% endif %}
+                                </span>
+                            </p>
                             <h6 class="border-bottom border-gray pb-2 mb-0">Reactions</h6>
                             {% for reaction in message.reactions %}
                                 <div class="media text-muted pt-3">
@@ -41,14 +50,16 @@
                                             {% else %}Anonymous{% endif %}
                                         </strong>
                                         {{ reaction.content }}
+                                        <span class="float-right">
+                                            {% if (app.request.cookies.get('tokenCookie' ~ reaction.id) | trans == reaction.token and app.request.cookies.get('userCookie' ~ reaction.id) | trans == app.user) %}
+                                                <a href="{{ path('edit_reaction', {'id': reaction.id}) }}" class="fas fa-pencil-alt"></a>
+                                                <a href="{{ path('delete_reaction', {'id': reaction.id}) }}" class="fas fa-trash-alt"></a>
+                                            {% endif %}
+                                        </span>
                                     </p>
-                                    {% if (app.request.cookies.get('tokenCookie' ~ reaction.id) | trans == reaction.token and app.request.cookies.get('userCookie' ~ reaction.id) | trans == app.user) %}
-                                        <a href="{{ path('edit_reaction', {'id': reaction.id}) }}" class="fas fa-pencil-alt"></a>
-                                        <a href="{{ path('delete_reaction', {'id': reaction.id}) }}" class="fas fa-trash-alt"></a>
-                                    {% endif %}
                                 </div>
                             {% endfor %}
-                            <form action="{{ path('react_to_message', {'id': message.id}) }}" method="post">
+                            <form class="mt-2" action="{{ path('react_to_message', {'id': message.id}) }}" method="post">
                                 {{ form_start(form) }}
                                 {{ form_errors(form) }}
                                 {{ contentField|raw }}
@@ -59,7 +70,7 @@
                     {% endfor %}
                 </div>
             </div>
-        {% elseif is_granted('ROLE_USER') %}
+        {% elseif (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) or is_granted('ROLE_USER') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
             <ul>
                 {% for message in messages %}
                     {% if message.userid == app.user.id %}
@@ -69,8 +80,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Category</h5>
                                         <p class="card-text">{{ message }}</p>
-                                        <a href="{{ path('updatemessage', {'id': message.id}) }}" class="glyphicon glyphicon-pencil"></a>
-                                        <a href="{{ path('deletemessage', {'id': message.id}) }}" class="glyphicon glyphicon-trash"></a>
+                                        <a href="{{ path('updatemessage', {'id': message.id}) }}" class="fas fa-pencil-alt"></a>
                                     </div>
                                 </div>
                             </div>
@@ -80,9 +90,13 @@
             </ul>
         {% else %}
             <p>No messages found for your account</p>
-
         {% endif %}
     {% else %}
-        <p>No messages can be found</p>
+        <div class="container mt-5" align="center">
+            <h1>No messages can be found</h1>
+            {% if (is_granted('ROLE_USER') or is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) %}
+                <a type="button" class="btn btn-secondary" href="{{ path('getmessage') }}">Add Message</a>
+            {% endif %}
+        </div>
     {% endif %}
 {% endblock %}
