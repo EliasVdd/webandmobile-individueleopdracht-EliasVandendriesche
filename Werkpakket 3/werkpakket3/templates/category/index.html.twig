@@ -5,15 +5,23 @@
         .jumbotron {
             max-width: 50%;
         }
+
+        @media (max-width: 575px) {
+            .jumbotron {
+                max-width: 100%;
+            }
+        }
     </style>
 
-    <div align="center">
+    {% include 'navbar.html.twig' %}
+
+    <div class="mt-5" align="center">
         <div class="jumbotron">
             {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR')) %}
                 {% if categories %}
-                    <ul>
+                    <ul class="list-group">
                         {% for category in categories %}
-                            <li>
+                            <li class="list-group-item">
                                 {{ category.name }}
                             </li>
                         {% endfor %}
@@ -21,9 +29,7 @@
                 {% else %}
                     <p>No categories can be found</p>
                 {% endif %}
-                <a href={{ path('category') }}>
-                    <button type="button" class="btn btn-dark">Add category</button>
-                </a>
+                <a type="button" class="btn btn-secondary mt-3" href="{{ path('category') }}">Add category</a>
             {% else %}
                 <p>Access denied</p>
             {% endif %}
