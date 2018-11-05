@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Security("has_role('ROLE_USER') or has_role('ROLE_ADMIN')or has_role('ROLE_MODERATOR')")
+ * @Security("has_role('ROLE_USER') or has_role('ROLE_ADMIN')or has_role('ROLE_MODERATOR') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
  */
 class MessageController extends AbstractController
 {

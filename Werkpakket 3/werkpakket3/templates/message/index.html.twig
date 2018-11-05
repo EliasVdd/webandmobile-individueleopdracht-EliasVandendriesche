@@ -34,13 +34,18 @@
                             <p class="card-text">
                                 <span>{{ message }}</span>
                                 <span class="float-right">
-                                    {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN') or message.userid == app.user.id) %}
+                                    {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) %}
                                         <a href="{{ path('deletemessage', {'id': message.id}) }}"
                                            class="fas fa-trash-alt"></a>
                                         {% if not is_granted('ROLE_MODERATOR') %}
                                         <a href="{{ path('updatemessage', {'id': message.id}) }}"
                                            class="fas fa-pencil-alt"></a>
                                     {% endif %}
+                                    {% elseif (is_granted('ROLE_USER') and message.userid == app.user.id) %}
+                                        <a href="{{ path('deletemessage', {'id': message.id}) }}"
+                                           class="fas fa-trash-alt"></a>
+                                        <a href="{{ path('updatemessage', {'id': message.id}) }}"
+                                           class="fas fa-pencil-alt"></a>
                                     {% endif %}
                                 </span>
                             </p>

@@ -8,6 +8,10 @@
         max-width: 50%;
     }
 
+    #anonButton {
+        margin-top: 1em;
+    }
+
     form {
         max-width: 25%;
     }
@@ -66,6 +70,7 @@
             #}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <button class="btn btn-primary" type="submit">Sign in</button>
+            <a id="anonButton" class="btn btn-primary" href="{{ path('messages') }}">Proceed anonymously</a>
         </form>
     </div>
 </div>
