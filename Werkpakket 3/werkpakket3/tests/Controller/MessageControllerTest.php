@@ -66,7 +66,6 @@ class MessageControllerTest extends WebTestCase
         // for example, when using Guard authentication you must instantiate PostAuthenticationGuardToken
         $token = new UsernamePasswordToken('test', 'test', $firewallName, array('ROLE_ADMIN'));
         $session->set('_security_'.$firewallContext, serialize($token));
-        var_dump($session);
         $session->save();
 
         $cookie = new Cookie($session->getName(), $session->getId());
