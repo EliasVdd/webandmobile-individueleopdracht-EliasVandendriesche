@@ -29,14 +29,15 @@ class Message
     private $userid;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $categoryid;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reaction", mappedBy="message", orphanRemoval=true)
      */
     private $reactions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="message")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
 
     public function __construct()
     {
@@ -72,20 +73,14 @@ class Message
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getCategory()
     {
-        return $this->categoryid;
+        return $this->category;
     }
 
-    /**
-     * @param mixed $categoryid
-     */
-    public function setCategory($categoryid): void
+    public function setCategory($category): void
     {
-        $this->categoryid = $categoryid;
+        $this->category = $category;
     }
 
     public function __toString()

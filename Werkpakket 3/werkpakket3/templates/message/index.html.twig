@@ -42,7 +42,7 @@
                 <div class="card mt-3">
                     {% for message in pagination %}
                         <div class="card-body">
-                            <h5 class="card-title">Category</h5>
+                            <h5 class="card-title">{{ message.category.name }}</h5>
                             <p class="card-text">
                                 <span>{{ message }}</span>
                                 <span class="float-right">
