@@ -23,7 +23,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $this->client->request('GET', '/categories');
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
 
 }

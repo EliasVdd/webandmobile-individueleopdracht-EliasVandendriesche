@@ -20,6 +20,7 @@
     {% set contentField = form_row(form.content) %}
     {% set reactButton = form_row(form.React) %}
     {% if messages %}
+        <h1>Messages</h1>
         {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) or is_granted('ROLE_USER') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
             <div class="container mt-5">
                 <div align="left">
