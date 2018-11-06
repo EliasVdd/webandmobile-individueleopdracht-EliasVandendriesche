@@ -17,6 +17,10 @@
         .pagination {
             margin-top: 20px;
         }
+
+        .form-control {
+            max-width: 20%;
+        }
     </style>
 
     {% include 'navbar.html.twig' %}
@@ -30,6 +34,10 @@
                     {% if (is_granted('ROLE_USER') or is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) %}
                         <a type="button" class="btn btn-secondary" href="{{ path('getmessage') }}">Add Message</a>
                     {% endif %}
+                    <form action="{{ path('messages') }}" class="mt-2">
+                        <input type="text" class="form-control float-left" placeholder="Search in messages..." name="search"/>
+                        <button type="submit" class="btn btn-secondary ml-1">Search</button>
+                    </form>
                 </div>
                 <div class="card mt-3">
                     {% for message in pagination %}

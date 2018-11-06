@@ -17,11 +17,11 @@
 
             {% if previous is defined %}
                 <li class="page-item">
-                    <a class="page-link" rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;Vorige</a>
+                    <a class="page-link" rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;Previous</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
-                    <span class="page-link">&laquo;&nbsp;Vorige</span>
+                    <span class="page-link">&laquo;&nbsp;Previous</span>
                 </li>
             {% endif %}
 
@@ -72,11 +72,11 @@
 
             {% if next is defined %}
                 <li class="page-item">
-                    <a class="page-link" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">Volgende&nbsp;&raquo;</a>
+                    <a class="page-link" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">Next&nbsp;&raquo;</a>
                 </li>
             {% else %}
                 <li  class="page-item disabled">
-                    <span class="page-link">Volgende &raquo;</span>
+                    <span class="page-link">Next &raquo;</span>
                 </li>
             {% endif %}
         </ul>

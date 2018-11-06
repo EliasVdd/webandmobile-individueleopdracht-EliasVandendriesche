@@ -20,9 +20,16 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    public function getWithSearchQueryBuilder()
+    /**
+     * @return Message[]
+     */
+    public function findByTerm($term)
     {
-        return $this->createQueryBuilder("m");
+        return $this->createQueryBuilder("m")
+            ->andWhere('m.content LIKE :term')
+            ->setParameter('term', $term)
+            ->getQuery()
+            ->getResult();
     }
 
     public function postMessage(Message $message)

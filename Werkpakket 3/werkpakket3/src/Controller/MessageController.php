@@ -31,6 +31,28 @@ class MessageController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator)
     {
+        if ($request->query->get('search') != null) {
+            $form = $this->createForm(ReactionType::class, new Reaction());
+
+            $searchTerm = "%";
+            foreach (explode(" ", $request->query->get('search')) as $string) {
+                $searchTerm .= $string . "%";
+            }
+
+            $messageRepository = $this->getDoctrine()->getRepository(Message::class);
+            $filteredMessages = $messageRepository->findByTerm($searchTerm);
+            $pagination = $paginator->paginate(
+                $filteredMessages,
+                $request->query->getInt('page', 1),
+                2
+            );
+
+            return $this->render('message/index.html.twig', [
+                'pagination' => $pagination,
+                'form' => $form->createView()
+            ]);
+        }
+
         $form = $this->createForm(ReactionType::class, new Reaction());
 
         $messageRepository = $this->getDoctrine()->getRepository(Message::class);
@@ -197,5 +219,4 @@ class MessageController extends AbstractController
         $emManager->persist($message);
         $emManager->flush();
     }
-
 }
