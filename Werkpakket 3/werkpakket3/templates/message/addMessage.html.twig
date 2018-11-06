@@ -35,6 +35,7 @@
         }
     </style>
 
+    {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')) %}
     <div align="center">
         <div class="jumbotron">
             <h1 class="display-4">Create new message</h1>
@@ -47,4 +48,7 @@
             {{ form_end(form) }}
         </div>
     </div>
+        {% else %}
+            <h1>Access denied</h1>
+    {% endif %}
 {% endblock %}
