@@ -13,22 +13,26 @@
         .border-bottom {
             margin: 15px;
         }
+
+        .pagination {
+            margin-top: 20px;
+        }
     </style>
 
     {% include 'navbar.html.twig' %}
 
     {% set contentField = form_row(form.content) %}
     {% set reactButton = form_row(form.React) %}
-    {% if messages %}
+    {% if pagination %}
         {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) or is_granted('ROLE_USER') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-            <div class="container mt-5">
+            <div class="container mt-5 mb-5">
                 <div align="left">
                     {% if (is_granted('ROLE_USER') or is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) %}
                         <a type="button" class="btn btn-secondary" href="{{ path('getmessage') }}">Add Message</a>
                     {% endif %}
                 </div>
                 <div class="card mt-3">
-                    {% for message in messages %}
+                    {% for message in pagination %}
                         <div class="card-body">
                             <h5 class="card-title">Category</h5>
                             <p class="card-text">
@@ -85,6 +89,7 @@
                         </div>
                     {% endfor %}
                 </div>
+                {{ knp_pagination_render(pagination) }}
             </div>
         {% else %}
             <p>No messages found for your account</p>
