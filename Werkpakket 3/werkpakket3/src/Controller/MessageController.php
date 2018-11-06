@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Form\MessageType;
+use App\Repository\MessageRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Message;
@@ -27,16 +29,20 @@ class MessageController extends AbstractController
     /**
      * @Route("/messages", name="messages")
      */
-    public function index(Request $request)
+    public function index(Request $request, PaginatorInterface $paginator)
     {
         $form = $this->createForm(ReactionType::class, new Reaction());
 
-        $messages = $this->getDoctrine()
-            ->getRepository(Message::class)
-            ->findAll();
+        $messageRepository = $this->getDoctrine()->getRepository(Message::class);
+        $messages = $messageRepository->findAll();
+        $pagination = $paginator->paginate(
+            $messages,
+            $request->query->getInt('page', 1),
+            2
+        );
 
         return $this->render('message/index.html.twig', [
-            'messages' => $messages,      
+            'pagination' => $pagination,
             'form' => $form->createView()
         ]);
     }
