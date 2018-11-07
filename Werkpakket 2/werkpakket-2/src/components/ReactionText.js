@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 
 const ReactionText = (props) => {
     return (<div style={{width:"100%", margin:'auto'}}>
-  
         {props.children}
- 
-    </div>);
+        </div>);
 };
 
 ReactionText.propTypes = {

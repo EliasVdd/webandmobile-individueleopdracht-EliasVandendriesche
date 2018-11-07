@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card, CardText, CardTitle, CardActions, FABButton, Icon, List, ListItem, ListItemContent } from 'react-mdl';
 import PropTypes from "prop-types";
-import 'react-mdl/extra/material.js'
-import 'react-mdl/extra/material.css'
-import AddReaction from './AddReaction.js'
-import ReactionText from './ReactionText'
+import 'react-mdl/extra/material.js';
+import 'react-mdl/extra/material.css';
+import AddReaction from './AddReaction.js';
+import ReactionText from './ReactionText';
 
 const Message = (props) => {
     return (
