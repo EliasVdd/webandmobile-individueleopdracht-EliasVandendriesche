@@ -77,9 +77,6 @@ function NavigationBar (props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar style={{background:'#030203'}}>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-            <MenuIcon />
-          </IconButton>
           <Typography className={classes.title} variant="h6" color="inherit" noWrap>
             {props.username}
           </Typography>
